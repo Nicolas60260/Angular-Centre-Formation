@@ -1,0 +1,80 @@
+<title>Gestion Participants</title>
+<table>
+    <tr>
+
+        <td>mail</td>
+        <td>nom</td>
+        <td>prenom</td>
+        <td>telephone</td>
+        <td>username</td>
+        <td>password</td>
+        <td>Somme Due totale</td>
+        <td>Somme restant à payer</td>
+        <td>Supprimer ce participant</td>
+        <td>Modifier ce participant</td>
+        <td>Afficher Paiements</td>
+
+    </tr>
+    
+    <tr *ngFor = "let p of ListeParticipant" >
+
+        <td>{{p.mail}}</td>
+        <td>{{p.nom}}</td>
+        <td>{{p.prenom}}</td>
+        <td>{{p.telephone}}</td>
+        <td>{{p.username}}</td>
+        <td>{{p.password}}</td>
+        <td>{{p.sommeDue}}</td>
+        <td><button (click)="supprimerParticipant(p.id)">Supprimer ce Participant</button></td>
+        <td><button (click)="modifierParticipant(p)">Modifier ce Participant</button></td>
+        <td><button (click)="paiementsParticipant(p)">Consulter Paiements de ce participant</button></td>
+
+        <!--
+        <td *ngIf="a.categorie!=null; else mi1">{{a.categorie.id}}</td><ng-template #mi1> <td>Pas de categorie associée</td></ng-template>
+        <td *ngIf="a.categorie!=null; else mi2">{{a.categorie.nomCategorie}}</td><ng-template #mi2> <td>Pas de categorie associée</td></ng-template>
+        <td><button (click)="supprimerAnnonce(a.id)">Supprimer cette Annonce</button></td>
+        -->
+
+    </tr>
+</table>
+<br>
+<h2>Ajouter/Modifier un participant</h2>
+<form (ngSubmit)="ajouterParticipant()">
+    id : <input type="number" name="id" [(ngModel)]="ParticipantAAjouter.id"> 
+    mail : <input type="text" name="mail" [(ngModel)]="ParticipantAAjouter.mail"> 
+    nom : <input type="text" name="nom" [(ngModel)]="ParticipantAAjouter.nom">
+    prenom : <input type="text" name="prenom" [(ngModel)]="ParticipantAAjouter.prenom">
+    telephone : <input type="number" name="telephone" [(ngModel)]="ParticipantAAjouter.telephone">
+    username : <input type="text" name="username" [(ngModel)]="ParticipantAAjouter.username">
+    password : <input type="text" name="password" [(ngModel)]="ParticipantAAjouter.password">
+    Somme Due : <input type="text" name="sommeDue" [(ngModel)]="ParticipantAAjouter.sommeDue">
+    
+    <button type="submit">Ajouter Participant</button>
+</form>
+
+<div *ngIf="ListePaiement.length!=0">
+
+    <h2>Paiements relatif au participant</h2>
+    <tr>
+        <td>id</td>
+        <td>date</td>
+        <td>mode</td>
+        <td>montant</td>
+        
+    </tr>
+    <tr *ngFor = "let p of ListePaiement" >
+
+        <td>{{p.id}}</td>
+        <td>{{p.date}}</td>
+        <td>{{p.mode}}</td>
+        <td>{{p.montant}}</td>
+
+    </tr>
+
+
+    <button (click)="effacerPaiement()">Effacer la liste des paiements</button>
+  </div>
+
+  <div *ngIf="Message!=null">
+    <p>{{Message}}</p>
+  </div>

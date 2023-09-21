@@ -1,8 +1,6 @@
+import { Paiement } from "./paiement";
 
-
-
-export class Utilisateur {
-    
+export class Participant {
     id!:number;
     mail!:string;
     nom!:string;
@@ -10,10 +8,13 @@ export class Utilisateur {
     telephone!:string;
     username!:string;
     password!:string;
+    sommeDue!:number
+    paiements!:Paiement[];
 
 
 
-    constructor(id?:number,mail?:string,nom?:string,prenom?:string,username?:string,password?:string,telephone?:string)
+
+    constructor(id?:number,mail?:string,nom?:string,prenom?:string,username?:string,password?:string,telephone?:string,sommeDue?:number,paiements?:Paiement[])
     {
         
         if(id)
@@ -30,7 +31,10 @@ export class Utilisateur {
         this.username = username;
         if(password)
         this.password = password;
+        if(sommeDue)
+        this.sommeDue = sommeDue;
+        if(paiements)
+        this.paiements = paiements;
 
     }
-    
 }
