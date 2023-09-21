@@ -1,0 +1,63 @@
+<h1>Gestion Admin pour Commerciaux</h1>
+
+<h3>Entrée d'un nouveau Commercial</h3>
+<form (ngSubmit)="ajoutCommercial()">
+    
+    Nom : <input type="text" name="nom" [(ngModel)]="Commercial.nom"> <br>
+    Prenom : <input type="text" name="prenom" [(ngModel)]="Commercial.prenom"> <br>
+    Mail : <input type="text" name="mail" [(ngModel)]="Commercial.mail"> <br>
+    Telephone : <input type="text" name="telephone" [(ngModel)]="Commercial.telephone"> <br>
+    Nom_Utilisateur : <input type="text" name="username" [(ngModel)]="Commercial.username"> <br>
+    Mot_de_passe : <input type="text" name="password" [(ngModel)]="Commercial.password"> <br>
+
+    <button type="submit">Ajouter</button>
+    </form>
+
+    <hr>
+    <!-- <button onclick="afficherCommerciaux()" >Menu des commerciaux</button> -->
+
+<table border="1" title="Tableau des Commerciaux">
+
+    <tr>
+<!-- Section infos employé commercial-->
+<td> Nom</td>
+<td>Prenom</td>
+<td>Mail</td>
+<td>Telephone</td>
+<!--Section boutons administrateur, gestion du profil-->
+<td>Modifier Commercial</td>
+<td>SupprimerCommercial</td>
+<td>Acces liste appels </td>
+<td>Acces liste prospect</td>
+
+
+
+    </tr>
+
+    <tr *ngFor="let c of listeCommercial">
+
+   
+        <td> {{c.nom}}</td>
+        <td>{{c.prenom}}</td> <!--Principe des pipes-->
+        <td>{{c.mail}}</td>
+        <td> {{c.telephone}}</td>
+     
+       <!--<td><div *ngIf="p.citoyen != null">{{p.citoyen.nom}}</div></td>--> 
+<!--  <td><button (click)="modifierCommercial(c.id)">Modifier Commercial</button> </td>-->
+
+     
+        
+        <!--
+        <td><button (click)="supprimerPasseport(a.idAnnonce)">Supprimer</button> </td>
+        <td><button (click)="afficher(a.idAnnonce)">AfficherPasseport</button> </td>
+       -->
+    </tr>
+    
+
+   
+<!---->
+</table>
+<hr>
+<!--<td><button (click)="ajoutAnnonce()">Ajouter annonce</button> </td>
+<button routerLink="/ajouterAnnonce">Aller à Component ajouterAnnonce</button>
+retourAnnonces()-->
