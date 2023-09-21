@@ -1,0 +1,66 @@
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Texte</th>
+            <th>Date</th>
+            <th>Commercial</th>
+            <th>Prospect</th>
+            <th>Appel</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let com of listeCommentaire">
+            <td>{{com.id}}</td>
+            <td>{{com.texte}}</td>
+            <td>{{com.date}}</td>
+            <td><span *ngIf="com.commercial !=null" >{{com.commercial.nom}}</span></td>
+            <td><span *ngIf="com.prospect !=null">{{com.prospect.nom}}</span></td>
+            <td><span *ngIf="com.appel !=null">#{{com.appel.id}}</span></td>
+            <td><button >Modifier</button></td>
+            <td><button (click)="supprimerCommentaire(com.id)" >Supprimer</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Enregistrer / Modifier un commentaire</h1>
+
+<form (ngSubmit)="enregistrerCommentaire()">
+    <table>
+        <tr>
+            <input type="hidden" name="id" [(ngModel)]="commentaire.id">
+            <td>
+                <label for="texte">Texte</label>
+                <input type="texte" name="texte" [(ngModel)]="commentaire.texte">
+            </td>
+            <td>
+                <label for="date">Date</label>
+                <input type="date" name="date" [(ngModel)]="commentaire.date">
+            </td>
+            <td>
+                <label for="commercial">Commercial</label>
+                <select id="commercial" [(ngModel)]="commentaire.commercial.id" name="commercial">
+                    <option *ngFor="let commercial of listeCommercial" [value]="commercial.id">{{ commercial.nom }}</option>
+                </select>
+            </td>
+            <td>
+                <label for="prospect">Prospect</label>
+                <select id="prospect" [(ngModel)]="commentaire.prospect.id" name="Prospect">
+                    <option *ngFor="let prospect of listeProspect" [value]="prospect.id">{{ prospect.nom }}</option>
+                </select>
+            </td>
+            <td>
+                <label for="appel">Appel</label>
+                <select id="appel" [(ngModel)]="commentaire.appel.id" name="Appel">
+                    <option *ngFor="let appel of listeProspect" [value]="appel.id">#{{ appel.id }}</option>
+                </select>
+            </td>
+            <tr>
+          
+            <td> <button type="submit">Enregistrer</button></td>
+        </tr>
+
+
+    </table>
