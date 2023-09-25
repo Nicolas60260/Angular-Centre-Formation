@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Prospect } from 'src/app/models/prospect';
 import { ProspectService } from 'src/app/service/site/prospect.service';
 
@@ -11,7 +12,7 @@ export class GestionProspectComponent implements OnInit {
   listeProspect !: Prospect[];
   prospect !: Prospect;
 
-  constructor(private prospectService: ProspectService) { }
+  constructor(private prospectService: ProspectService,private route:Router) { }
 
   ngOnInit(): void {
     this.afficherAll(),
@@ -42,5 +43,23 @@ export class GestionProspectComponent implements OnInit {
   modifierProsepct(prospect:Prospect){
     this.prospect=prospect;
     this.afficherAll()
+  }
+
+  afficherCommentaire(id:number){
+    this.route.navigateByUrl(`adminCommentaire/${id}`)
+  }
+  afficherAppel(id:number){
+    this.route.navigateByUrl(`adminAppel/${id}`)
+  }
+
+  inscrireParticipant(prospect:Prospect){
+    console.log(prospect)
+    this.prospectService.inscrireParticipant(prospect).subscribe(
+      response=>{console.log("Prospect #" + prospect.id + " inscrit")},
+      error => {console.error("Impossible d'ajouter le prospect dans les inscrits");
+      }
+    );
+
+  
   }
 }

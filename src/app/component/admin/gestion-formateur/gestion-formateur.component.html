@@ -1,0 +1,70 @@
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Mail</th>
+            <th>Telephone</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Formations</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let f of listeFormateur">
+            <td>{{f.id}}</td>
+            <td>{{f.nom}}</td>
+            <td>{{f.prenom}}</td>
+            <td>{{f.mail}}</td>
+            <td>{{f.telephone}}</td>
+            <td>{{f.username}}</td>
+            <td>{{f.password}}</td>
+            <td><button>Afficher les formations</button></td>
+            <!-- <td><button (click)="afficherFormations(p.id)"  >Afficher les formations</button></td> -->
+            <td><button (click)="modifierFormateur(f)">Modifier</button></td>
+            <td><button (click)="supprimerFormateur(f.id)">Supprimer</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Ajouter / Modifier un formateur</h1>
+<form (ngSubmit)="enregistrerFormateur()">
+<table>
+    <tr>
+        <input type="hidden" name="id" [(ngModel)]="formateur.id">
+        <td>
+            <label for="nom">Nom</label>
+            <input type="text" name="nom" [(ngModel)]="formateur.nom">
+        </td>
+        <td>
+            <label for="prenom">Prenom</label>
+            <input type="text" name="prenom" [(ngModel)]="formateur.prenom">
+        </td>
+        <td>
+            <label for="mail">Mail</label>
+            <input type="text" name="mail" [(ngModel)]="formateur.mail">
+        </td>
+        <td>
+            <label for="telephone">Telephone</label>
+            <input type="text" name="telephone" [(ngModel)]="formateur.telephone">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="username">Username</label>
+            <input type="text" name="username" [(ngModel)]="formateur.username">
+        </td>
+        <td>
+            <label for="password">Password</label>
+            <input type="text" name="password" [(ngModel)]="formateur.password">
+        </td>
+
+        <td> <button type="submit">Enregistrer</button></td>
+    </tr>
+</table>
+
+</form>
+<br>
+<a href="menuAdmin"><<< Retour au menu administrateur</a>

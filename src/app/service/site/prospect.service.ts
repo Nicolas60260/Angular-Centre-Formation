@@ -25,4 +25,10 @@ export class ProspectService {
     console.log(prospect)
     return this.http.post("http://localhost:8018/prospect/c/add",prospect)
   }
+
+  inscrireParticipant(prospect:Prospect){ //  /c/inscrire
+    
+    console.log("Prospect #" + prospect.id + " inscrit")
+    return this.http.post("http://localhost:8018/prospect/c/register",prospect)
+  }
 }

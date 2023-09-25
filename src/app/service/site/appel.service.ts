@@ -17,12 +17,16 @@ export class AppelService {
     return this.http.get<Appel>(`http://localhost:8018/appel/c/${id}`)
   }
 
-  getCommentaireByAppelId(id:number){
-    return this.http.get<Commentaire>(`http://localhost:8018/commentaire/c/appel/${id}`)
+  getByProspectId(idprospect:number){
+    return this.http.get<Appel[]>(`http://localhost:8018/appel/c/prospect/${idprospect}`)
+  }
+
+  getByCommentaireNull(){
+    return this.http.get<Appel[]>("http://localhost:8018/appel/c/comvide")
   }
 
   addAppel(appel:Appel){
-    console.log(appel.commentaire.texte)
+    console.log(appel.rdv)
     return this.http.post("http://localhost:8018/appel/c/add",appel)
   }
 

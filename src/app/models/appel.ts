@@ -6,7 +6,7 @@ export class Appel {
     id!: number;
     debutAppel!: Date;
     duree!: number;
-    RDV!: boolean;
+    rdv!: boolean;
     commentaire!: Commentaire;
     commercial!: Commercial;
     prospect!: Prospect;
@@ -14,7 +14,7 @@ export class Appel {
     constructor(id?: number,
         debutAppel?: Date,
         duree?: number,
-        RDV?: boolean,
+        rdv?: boolean,
         commentaire?: Commentaire,
         commercial?: Commercial,
         prospect?: Prospect) {
@@ -27,8 +27,8 @@ export class Appel {
         if (duree) {
             this.duree = duree
         }
-        if (RDV) {
-            this.RDV = RDV
+        if (rdv) {
+            this.rdv = rdv
         }
         if (commentaire) {
             this.commentaire = commentaire

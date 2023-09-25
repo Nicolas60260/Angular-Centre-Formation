@@ -3,12 +3,12 @@ import { Commercial } from "./commercial";
 import { Prospect } from "./prospect";
 
 export class Commentaire {
-    id!:number;
-    texte!:string;
-    date!:Date;
-    commercial!:Commercial;
-    appel!:Appel;
-    prospect!:Prospect;
+    id?:number;
+    texte?:string;
+    date?:Date;
+    commercial?:Commercial;
+    appel?:Appel ;
+    prospect?:Prospect ;
 
     constructor(id?:number,
         texte?:string,

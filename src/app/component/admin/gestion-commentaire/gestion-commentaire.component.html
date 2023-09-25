@@ -9,6 +9,7 @@
             <th>Appel</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,8 +20,8 @@
             <td><span *ngIf="com.commercial !=null" >{{com.commercial.nom}}</span></td>
             <td><span *ngIf="com.prospect !=null">{{com.prospect.nom}}</span></td>
             <td><span *ngIf="com.appel !=null">#{{com.appel.id}}</span></td>
-            <td><button >Modifier</button></td>
-            <td><button (click)="supprimerCommentaire(com.id)" >Supprimer</button></td>
+            <td><button (click)="modifierCommentaire(com)" >Modifier</button></td>
+            <td><button *ngIf="com.id !=undefined" (click)="supprimerCommentaire(com.id)" >Supprimer</button></td>
         </tr>
     </tbody>
 </table>
@@ -41,26 +42,26 @@
             </td>
             <td>
                 <label for="commercial">Commercial</label>
-                <select id="commercial" [(ngModel)]="commentaire.commercial.id" name="commercial">
+                <select id="commercial" *ngIf="commentaire.commercial!=undefined" [(ngModel)]="commentaire.commercial.id" name="commercial">
                     <option *ngFor="let commercial of listeCommercial" [value]="commercial.id">{{ commercial.nom }}</option>
                 </select>
             </td>
             <td>
-                <label for="prospect">Prospect</label>
-                <select id="prospect" [(ngModel)]="commentaire.prospect.id" name="Prospect">
+                <label *ngIf="commentaire.prospect!=undefined" for="prospect">Prospect</label>
+                <select id="prospect" *ngIf="commentaire.prospect!=undefined"  [(ngModel)]="commentaire.prospect.id" name="Prospect">
                     <option *ngFor="let prospect of listeProspect" [value]="prospect.id">{{ prospect.nom }}</option>
                 </select>
             </td>
             <td>
-                <label for="appel">Appel</label>
-                <select id="appel" [(ngModel)]="commentaire.appel.id" name="Appel">
-                    <option *ngFor="let appel of listeProspect" [value]="appel.id">#{{ appel.id }}</option>
+                <label *ngIf="commentaire.appel!=undefined" for="appel">Appel</label>
+                <select id="appel" *ngIf="commentaire.appel!=undefined"  [(ngModel)]="commentaire.appel.id" name="Appel">
+                    <option *ngFor="let appel of listeAppel" [value]="appel.id">#{{ appel.id }}</option>
                 </select>
             </td>
             <tr>
           
             <td> <button type="submit">Enregistrer</button></td>
         </tr>
-
-
     </table>
+
+    <a href="menuAdmin"><<< Retour au menu administrateur</a>

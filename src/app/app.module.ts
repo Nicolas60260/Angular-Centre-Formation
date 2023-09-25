@@ -10,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { GestionAppelComponent } from './component/admin/gestion-appel/gestion-appel.component';
 import { GestionCommentaireComponent } from './component/admin/gestion-commentaire/gestion-commentaire.component';
+import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
+import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
+import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { GestionCommentaireComponent } from './component/admin/gestion-commentai
     LoginComponent,
     GestionProspectComponent,
     GestionAppelComponent,
-    GestionCommentaireComponent
+    GestionCommentaireComponent,
+    MenuAdminComponent,
+    GestionFormateurComponent,
+    GestionCoursComponent
   ],
   imports: [
     BrowserModule,

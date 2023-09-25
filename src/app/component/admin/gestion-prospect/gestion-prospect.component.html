@@ -11,6 +11,7 @@
             <th>Commentaire</th>
             <th>Modifier</th>
             <th>Supprimer</th>
+            <th>Conversion</th>
         </tr>
     </thead>
     <tbody>
@@ -21,10 +22,11 @@
             <td>{{p.mail}}</td>
             <td>{{p.telephone}}</td>
             <td>{{p.statut}}</td>
-            <td><button>Afficher les appels</button></td>
-            <td><button>Afficher les commentaires</button></td>
+            <td><button (click)="afficherAppel(p.id)">Afficher les appels</button></td>
+            <td><button (click)="afficherCommentaire(p.id)">Afficher les commentaires</button></td>
             <td><button (click)="modifierProsepct(p)">Modifier</button></td>
             <td><button (click)="supprimerProspect(p.id)">Supprimer</button></td>
+            <td><button (click)="inscrireParticipant(p)">Inscrire en participant</button></td>
         </tr>
     </tbody>
 </table>
@@ -66,3 +68,5 @@
     </table>
 
 </form>
+<br>
+<a href="menuAdmin"><<< Retour au menu administrateur</a>

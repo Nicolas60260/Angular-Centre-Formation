@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Appel } from 'src/app/models/appel';
 import { Commentaire } from 'src/app/models/commentaire';
 import { Commercial } from 'src/app/models/commercial';
@@ -18,31 +19,93 @@ export class GestionCommentaireComponent implements OnInit {
   commentaire!: Commentaire;
   listeCommercial !: Commercial[];
   listeProspect !: Prospect[];
-  listeAppel !:Appel[];
+  listeAppel !: Appel[];
+  idcible!: number;
+  formGroup: any;
 
   constructor(private commentaireService: CommentaireService
     , private commercialService: CommercialService
     , private prospectService: ProspectService
-    ,private appelService:AppelService) { }
+    , private appelService: AppelService
+    , private ActRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.idcible = this.ActRoute.snapshot.params["id"];
     this.afficherAll();
     this.afficherCommercial();
     this.afficherProspect();
     this.afficherAppel();
-    this.commentaire=new Commentaire();
-    this.commentaire.commercial=new Commercial();
+    this.commentaire = new Commentaire();
+    this.commentaire.commercial = new Commercial();
     this.commentaire.prospect = new Prospect();
-    this.commentaire.appel=new Appel();
+    this.commentaire.appel = new Appel();
+  }
 
+  onSubmit() {
+    const requestBody: Commentaire = {};
+
+    if (this.formGroup.get('id').value !== null) {
+      requestBody.id = this.formGroup.get('id').value;
+    }
+    if (this.formGroup.get('texte').value !== null) {
+      requestBody.texte = this.formGroup.get('texte').value;
+    }
+    if (this.formGroup.get('date').value !== null) {
+      requestBody.date = this.formGroup.get('date').value;
+    }
+    if (this.formGroup.get('commercial').value !== null) {
+      requestBody.commercial = this.formGroup.get('commercial').value;
+    }
+    if (this.formGroup.get('prospect').value !== null) {
+      requestBody.prospect = this.formGroup.get('prospect').value;
+    }
+    if (this.formGroup.get('appel').value !== null) {
+      requestBody.appel = this.formGroup.get('appel').value;
+    }
   }
 
   afficherAll() {
-    this.commentaireService.getAll().subscribe(
-      response => { this.listeCommentaire = response },
-      error => (console.error("Impossible d'afficher la liste des commentaire")
+    if (this.idcible != undefined) {
+      this.commentaireService.getByProspectId(this.idcible).subscribe(
+        response => {
+          this.listeCommentaire = response
+            , this.attribuerAnnonce()
+            , this.commentaire = new Commentaire()
+            , this.commentaire.commercial = new Commercial()
+            , this.commentaire.prospect = new Prospect()
+            , this.commentaire.appel = new Appel()
+        },
+        error => { console.error("Impossible d'afficher les commentaires du prospect") }
       )
-    )
+    } else {
+      this.commentaireService.getAll().subscribe(
+        response => {
+          this.listeCommentaire = response,
+            this.attribuerAnnonce(),
+            console.log(this.listeCommentaire)
+            , this.commentaire = new Commentaire()
+            , this.commentaire.commercial = new Commercial()
+            , this.commentaire.prospect = new Prospect()
+            , this.commentaire.appel = new Appel()
+        },
+        error => (console.error("Impossible d'afficher la liste des commentaire")
+        )
+      )
+    }
+  }
+
+  attribuerAnnonce() {
+    this.listeCommentaire.forEach(commentaire => {
+      if (commentaire.id != undefined) {
+
+        this.commentaireService.getAppel(commentaire.id).subscribe(
+          response => { commentaire.appel = response },
+          error => {
+            console.error("Impossible d'attribuer les annonces");
+          }
+        )
+      }
+    })
   }
   afficherCommercial() {
     this.commercialService.getall().subscribe(
@@ -64,8 +127,8 @@ export class GestionCommentaireComponent implements OnInit {
       }
     )
   }
-  afficherAppel(){
-    this.appelService.getall().subscribe(
+  afficherAppel() {
+    this.appelService.getByCommentaireNull().subscribe(
       response => { this.listeAppel = response },
       error => (console.error("Impossible d'afficher la liste des appels"))
     )
@@ -82,12 +145,20 @@ export class GestionCommentaireComponent implements OnInit {
   }
 
   enregistrerCommentaire() {
+
     this.commentaireService.addCommentaire(this.commentaire).subscribe(
-      response => { console.log("commentaire ajouté avec succès")
-      ,console.log(this.commentaire), this.afficherAll() },
+      response => {
+        console.log("commentaire ajouté avec succès")
+
+          , console.log(this.commentaire), this.afficherAll(),this.afficherAppel()
+      },
       error => {
-        console.error("Impossible d'enregistrer le commentaire");
+        console.error("Impossible d'enregistrer le commentaire", console.log(this.commentaire));
       }
     )
+  }
+
+  modifierCommentaire(commentaire:Commentaire){
+    this.commentaire = commentaire;
   }
 }
