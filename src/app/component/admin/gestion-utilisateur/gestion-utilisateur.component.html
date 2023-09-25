@@ -1,1 +1,65 @@
-<p>gestion-utilisateur works!</p>
+<h1>Gestion Admin pour Utilisateurs</h1>
+
+<h3>Entrée d'un nouvel Utilisateur</h3>
+<h6>Mot de passe configuré par défaut </h6>
+<form (ngSubmit)="ajoutUtilisateur()">
+    
+    Nom : <input type="text" name="nom" [(ngModel)]="Utilisateur.nom"> <br>
+    Prenom : <input type="text" name="prenom" [(ngModel)]="Utilisateur.prenom"> <br>
+    Mail : <input type="text" name="mail" [(ngModel)]="Utilisateur.mail"> <br>
+    Telephone : <input type="text" name="telephone" [(ngModel)]="Utilisateur.telephone"> <br>
+    Nom_Utilisateur : <input type="text" name="username" [(ngModel)]="Utilisateur.username"> <br>
+    <!-- Même l'admin n'est pas censé pouvoir connaitre le mdp des utilisateurs-->
+    <!--Mot_de_passe : <input type="text" name="password" [(ngModel)]="commercial.password"> <br>-->
+    
+
+    <button type="submit">Ajouter</button>
+    </form>
+    
+    
+    <hr>
+   
+<h1>Liste des utilisateurs</h1>
+
+<table border="1" title="Tableau des Utilisateurs">
+<!-- tetes de colonnes du tableau-->
+    <tr>
+<!-- Section infos employé Utilisateur-->
+<td>Nom d'utilisateur</td>
+<td> Nom</td>
+<td>Prenom</td>
+<td>Mail</td>
+<td>Telephone</td>
+<!--Section boutons administrateur, gestion du profil-->
+
+<td>Modifier Utilisateur </td>
+<td>Supprimer Utilisateur</td>
+
+
+
+<!--Affichage de la liste des commerciaux-->
+
+    </tr>
+
+    <tr *ngFor="let u of listeUtilisateur" >
+       
+      <td>{{u.username}}</td>
+        <td> {{u.nom}}</td>
+        <td>{{u.prenom}}</td> 
+        <td>{{u.mail}}</td>
+        <td> {{u.telephone}}</td>
+    
+       <td><button (click)="modifierUtilisateur(u.id)">Modifier</button> </td>
+       <td><button (click)="supprimerUtilisateur(u.id)">Supprimer</button> </td>
+        
+        
+        
+     
+    </tr>
+    
+
+
+</table>
+<br>
+<hr>
+<br>

@@ -3,61 +3,88 @@
 <h3>Entrée d'un nouveau Commercial</h3>
 <form (ngSubmit)="ajoutCommercial()">
     
-    Nom : <input type="text" name="nom" [(ngModel)]="Commercial.nom"> <br>
-    Prenom : <input type="text" name="prenom" [(ngModel)]="Commercial.prenom"> <br>
-    Mail : <input type="text" name="mail" [(ngModel)]="Commercial.mail"> <br>
-    Telephone : <input type="text" name="telephone" [(ngModel)]="Commercial.telephone"> <br>
-    Nom_Utilisateur : <input type="text" name="username" [(ngModel)]="Commercial.username"> <br>
-    Mot_de_passe : <input type="text" name="password" [(ngModel)]="Commercial.password"> <br>
+    Nom : <input type="text" name="nom" [(ngModel)]="commercial.nom"> <br>
+    Prenom : <input type="text" name="prenom" [(ngModel)]="commercial.prenom"> <br>
+    Mail : <input type="text" name="mail" [(ngModel)]="commercial.mail"> <br>
+    Telephone : <input type="text" name="telephone" [(ngModel)]="commercial.telephone"> <br>
+    Nom_Utilisateur : <input type="text" name="username" [(ngModel)]="commercial.username"> <br>
+    <!-- Même l'admin n'est pas censé pouvoir connaitre le mdp des utilisateurs-->
+    <!--Mot_de_passe : <input type="text" name="password" [(ngModel)]="commercial.password"> <br>-->
+    
 
     <button type="submit">Ajouter</button>
     </form>
-
+    <!--<td><button (click)="">changer le mot de passe</button> </td>-->
+    
     <hr>
     <!-- <button onclick="afficherCommerciaux()" >Menu des commerciaux</button> -->
+<h1>Liste des commerciaux</h1>
 
 <table border="1" title="Tableau des Commerciaux">
-
+<!-- tetes de colonnes du tableau-->
     <tr>
 <!-- Section infos employé commercial-->
+<td>Nom d'utilisateur</td>
 <td> Nom</td>
 <td>Prenom</td>
 <td>Mail</td>
 <td>Telephone</td>
 <!--Section boutons administrateur, gestion du profil-->
-<td>Modifier Commercial</td>
-<td>SupprimerCommercial</td>
-<td>Acces liste appels </td>
+<td>Acces liste appels</td>
 <td>Acces liste prospect</td>
+<td>Modifier Commercial </td>
+<td>SupprimerCommercial</td>
 
 
+
+<!--Affichage de la liste des commerciaux-->
 
     </tr>
 
-    <tr *ngFor="let c of listeCommercial">
-
-   
+    <tr *ngFor="let c of listeCommercial" >
+       
+      <td>{{c.username}}</td>
         <td> {{c.nom}}</td>
-        <td>{{c.prenom}}</td> <!--Principe des pipes-->
+        <td>{{c.prenom}}</td> 
         <td>{{c.mail}}</td>
         <td> {{c.telephone}}</td>
-     
-       <!--<td><div *ngIf="p.citoyen != null">{{p.citoyen.nom}}</div></td>--> 
-<!--  <td><button (click)="modifierCommercial(c.id)">Modifier Commercial</button> </td>-->
-
-     
+        <td> <!-- Bouton pour afficher/cacher la liste des appels -->
+            <button (click)="toggleAfficherAppels(c.id)">{{c.nom}}</button>
+        </td>
+        <!-- Insérez la liste des appels ici avec *ngIf 
+        <td *ngIf="afficherAppels && c === commercialSelectionne"></td>-->
+       <!--<td><button (click)="afficher(p.id)">AfficherPasseport</button> </td>--> 
+       <td><button (click)="modifierCommercial(c.id)">Modifier</button> </td>
+       <td><button (click)="supprimerCommercial(c.id)">Supprimer</button> </td>
         
-        <!--
-        <td><button (click)="supprimerPasseport(a.idAnnonce)">Supprimer</button> </td>
-        <td><button (click)="afficher(a.idAnnonce)">AfficherPasseport</button> </td>
-       -->
+        
+        
+     
     </tr>
     
 
-   
-<!---->
+
 </table>
+<br>
 <hr>
-<!--<td><button (click)="ajoutAnnonce()">Ajouter annonce</button> </td>
-<button routerLink="/ajouterAnnonce">Aller à Component ajouterAnnonce</button>
-retourAnnonces()-->
+<br>
+
+<!--Division concernant l'affichage des listes d'appels d'un Commercial-->
+<div *ngIf = "listeAppels.length > 0 ">
+    <h1>Appels du commercial sélectionné</h1>
+<table *ngIf="listeAppels.length > 0" border="1" title="Liste des appels">
+  <tr>
+    <td>Début appel</td>
+    <td>Durée Appel</td>
+    <td>Rendez-vous</td>
+    
+  </tr>
+
+  <tr *ngFor="let a of listeAppels">
+    <td>{{ a.debutAppel }}</td>
+    <td>{{ a.duree }}</td>
+    <td>{{ a.RDV }}</td>
+    
+  </tr>
+</table>
+</div>

@@ -9,15 +9,13 @@ export class Appel {
     duree!:number;
     RDV!:boolean;
     commercial!:Commercial;
-    appel!:Appel;
-    prospect!:Prospect;
+        prospect!:Prospect;
     constructor( 
         id?:number,
         duree?:number,
         debutAppel?:Date,
         RDV?:boolean,
-        appel?:Appel,
-        prospect?:Prospect
+                prospect?:Prospect
         ){
             if (id) {
                 this.id=id
@@ -31,9 +29,7 @@ export class Appel {
             if (RDV) {
                 this.RDV=RDV
             }
-            if (appel) {
-                this.appel=appel
-            }
+           
             if (this.commercial) {
                 this.commercial=this.commercial
             }

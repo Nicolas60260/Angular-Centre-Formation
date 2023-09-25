@@ -8,6 +8,7 @@ import { GestionUtilisateurComponent } from './component/admin/gestion-utilisate
 import { GestionCommercialComponent } from './component/admin/gestion-commercial/gestion-commercial.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { GestionProspectComponent } from './component/admin/gestion-prospect/gestion-prospect.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
     HeaderComponent,
     LoginComponent,
     GestionUtilisateurComponent,
-    GestionCommercialComponent
+    GestionCommercialComponent,
+    GestionProspectComponent
   ],
   imports: [
     BrowserModule,

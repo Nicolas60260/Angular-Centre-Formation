@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Appel } from 'src/app/models/appel';
 import { Commercial } from 'src/app/models/commercial';
 import { CommercialService } from 'src/app/service/site/commercial.service';
 
@@ -11,7 +12,7 @@ import { CommercialService } from 'src/app/service/site/commercial.service';
 export class GestionCommercialComponent implements OnInit {
 
   listeCommercial!:Commercial[];
-  Commercial!:Commercial;
+  commercial!:Commercial;
 
  
   nom!: string;
@@ -20,31 +21,71 @@ export class GestionCommercialComponent implements OnInit {
   telephone!: string;
   // A regler les listes et autres attributs propres aux commerciaux
 
-  idCat!: number;
-  idUser!: number;
-  imageFile!: File;
- formData = new FormData();
+  // Utilisé pour l'affichage des appels conditionné par clic bouton
+  afficherAppels: boolean = false;
+  commercialSelectionne: any; // Variable pour suivre le commercial sélectionné
+  listeAppels!:Appel[];
+
+
   constructor(private service:CommercialService, private router:Router){
   
   }
 
-  
+ 
   
     ngOnInit(): void {
-     
+
+      this.commercial= new Commercial();
+     this.listeAppels=[];
+      this.listeCommercial=[];
      this.afficherCommerciaux();
 
+
     }
+   
+    //////////////////////////////////////////////////////////////////
+    ////////////////////Methode liste appels commercial selec///////////
+    //////////////////////////////////////////////////////////////////
+
+    // Fonction pour basculer l'affichage des appels
+    // changer vers id  commercial ! 
+    toggleAfficherAppels(id: number) {
+      for (let c of this.listeCommercial) {
+        if (c.id === id) {
+          
+          this.listeAppels = c.appels;
+        } 
+      }
+    }
+/*
+     //////////////////////////////////////////////////////////////////
+    ////////////////////Methode liste commentaires commercial selec///////////
+    //////////////////////////////////////////////////////////////////
+En attente mais faisable
+    toggleAfficherAppels(id: number) {
+      for (let c of this.listeCommercial) {
+        if (c.id === id) {
+          
+          this.listeAppels = c.appels;
+        } 
+      }
+    }
+*/
+
+//////////////////////////////////////////////////////////////////////
+    ////////////////////Methode affichage liste commerciaux///////////
+    //////////////////////////////////////////////////////////////////
   
     afficherCommerciaux(){
+      console.log("Meth afficher comm, admin gestion Commercial")
       this.service.getAllCommerciaux().subscribe(
-        response=>{this.listeCommercial=response
+        response=>{
+          this.listeCommercial=response;
+          console.log( this.listeCommercial)
         
-    })
+    },
+    error=>{console.log("erreur commercial")})
   }
-
-
-
 
 
 
@@ -53,129 +94,63 @@ export class GestionCommercialComponent implements OnInit {
     ////////////////////Methode d'ajout de commercial///////////////////////
     //////////////////////////////////////////////////////////////////
     ajoutCommercial(){
-
-      this.service.insererCommercial(this.Commercial).subscribe(
+      console.log("Meth ajout com, admin gestion Commercial")
+      this.service.insererCommercial(this.commercial).subscribe(
         response=>{
-          this.Commercial=new Commercial();
-          //this.service.getAllCommerciaux()
+          this.commercial=new Commercial();
+          
+          this.afficherCommerciaux();
       })
 
 
 
     }
-    
-// Commentaire = SUPPRIMER POUR DEBLOQUER LES METHODES
-    /*
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
     ////////////////////Methode de modification///////////////////////
     //////////////////////////////////////////////////////////////////
 
 
   modifierCommercial(id:number){
-      
+    console.log("Meth modifier, admin gestion Commercial")
     this.service.getById(id).subscribe(
-      response=>this.Commercial=response
+      response=>{this.commercial=response
+      }
     )
+    // ajouter  dans la réponse ? ?
     // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
  // PENSER A INSERER UNE ALERTE POUR CONFIRMER LE CHOIX DE MODIFICATION PAR SECURITE
  // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
     }
 
 
-//////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
 ////////////////////Methode de suppression///////////////////////
 //////////////////////////////////////////////////////////////////
 
 
-    supprimerCommercial(id:number){
-      console.log("Methode supprimerCommercial, admin gestion")
-  this.service.supprimerCommercial(id).subscribe(
-    response=>{
-      this.afficherCommerciaux()
-    },
-    error=>console.log("erreur lors de la suppression")
-  )
-  // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-  // PENSER A INSERER UNE ALERTE POUR CONFIRMER LE CHOIX DE SUPPRESSION PAR SECURITE
-  // MEME CHOSE A FAIRE POUR LA METHODE MODIFIER
-  // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-    }
+supprimerCommercial(id:number){
+  console.log("Methode supprimerCommercial, admin gestion")
+this.service.deleteCommercial(id).subscribe(
+response=>{
+  this.afficherCommerciaux()
+},
+error=>console.log("erreur lors de la suppression")
+)
+// /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+// PENSER A INSERER UNE ALERTE POUR CONFIRMER LE CHOIX DE SUPPRESSION PAR SECURITE
+// MEME CHOSE A FAIRE POUR LA METHODE MODIFIER
+// /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+}
 
-
-
-
-
-    //////////////////////////////////////////////////////////////////
-    ////////////////////Foutoir à méthodes////////////////////////////
-    //////////////////////////////////////////////////////////////////
-      /*this.service.modifPasseport(this.Passeport).subscribe(
+selectCommercialParId(id:number){
+  console.log("Meth selec par Id, admin gestion Commercial")
+this.service.getById(id).subscribe(
   response=>{
-    this.Passeport=new Passeport();
-    this.afficherAll()
-  }
-  
-      );
- // this.router.navigate(['/afficherPass']);
-  /*
-    afficherAll()
-    {
-  this.service.getAll().subscribe(
-    response=>{this.listePasseports=response
-    for(let i=0;i<this.listePasseports.length;i++)
-    {
-      this.citoyenService.getCitByPassId(this.listePasseports[i].id).subscribe(
-        response2=>this.listePasseports[i].citoyen=response2
-      )
-    }
-    });
-  
-    }
-  
-    supprimerPasseport(id:number){
-      console.log("Dans meth suppgestionPasseport")
-  this.service.deletePasseport(id).subscribe(
-    response=>{
-      this.afficherAll()
-    },
-    error=>console.log("erreur lors de la suppression")
-  )
-  
-    }
-  
-    ajouterPass(){
-      this.service.insererPasseport(this.Passeport,this.idCit).subscribe(
-  response=>{
-    this.Passeport=new Passeport();
-    this.afficherAll()
-  
+    this.commercial=response
   },
-  err=>console.log("Problème survenu lors de l'ajout de la Passeport")
-  
-      );
-      
-    }
-  
-    */
-  
-      
-    
+  error=>console.log("erreur lors de la recherche")
+)
 
-    // Redirige vers page
+}
 
-/*    afficherCits() {
-    this.service.getListPassVide().subscribe(
-      response=>this.listeCitoyens=response
-    );
-    // Utilisez la méthode navigate pour aller vers le composant désiré
-    }*/
-/*
-**************INUTILE*************
-    attribPass(){
-
-      this.service.getListPassVide.subscribe(
-        response=>this.listePasseports=response);
-    }*/
-
-    // formulaire ajout passeport on utilise la methode findbynull*/
-  
   }
