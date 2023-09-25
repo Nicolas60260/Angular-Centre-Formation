@@ -9,6 +9,12 @@ import { GestionCommercialComponent } from './component/admin/gestion-commercial
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { GestionProspectComponent } from './component/admin/gestion-prospect/gestion-prospect.component';
+import { GestionAppelComponent } from './component/admin/gestion-appel/gestion-appel.component';
+import { GestionCommentaireComponent } from './component/admin/gestion-commentaire/gestion-commentaire.component';
+import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
+import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
+import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
+
 
 @NgModule({
   declarations: [
@@ -17,13 +23,19 @@ import { GestionProspectComponent } from './component/admin/gestion-prospect/ges
     LoginComponent,
     GestionUtilisateurComponent,
     GestionCommercialComponent,
-    GestionProspectComponent
+    GestionProspectComponent,
+    GestionAppelComponent,
+    GestionCommentaireComponent,
+    MenuAdminComponent,
+    GestionFormateurComponent,
+    GestionCoursComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
+
   ],
   providers: [//{
     //provide: HTTP_INTERCEPTORS,

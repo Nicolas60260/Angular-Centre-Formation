@@ -1,1 +1,73 @@
-<p>gestion-prospect works!</p>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Mail</th>
+            <th>Telephone</th>
+            <th>Statut</th>
+            <th>Appels</th>
+            <th>Commentaire</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+            <th>Conversion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of listeProspect">
+            <td>{{p.id}}</td>
+            <td>{{p.nom}}</td>
+            <td>{{p.prenom}}</td>
+            <td>{{p.mail}}</td>
+            <td>{{p.telephone}}</td>
+            <td>{{p.statut}}</td>
+            <td><button (click)="afficherAppel(p.id)">Afficher les appels</button></td>
+            <td><button (click)="afficherCommentaire(p.id)">Afficher les commentaires</button></td>
+            <td><button (click)="modifierProsepct(p)">Modifier</button></td>
+            <td><button (click)="supprimerProspect(p.id)">Supprimer</button></td>
+            <td><button (click)="inscrireParticipant(p)">Inscrire en participant</button></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<br>
+
+<form (ngSubmit)="enregistrerProspect()">
+    <table>
+        <tr>
+            <input type="hidden" name="id" [(ngModel)]="prospect.id">
+            <td>
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" [(ngModel)]="prospect.nom">
+            </td>
+            <td>
+                <label for="prenom">Prenom</label>
+                <input type="text" name="prenom" [(ngModel)]="prospect.prenom">
+            </td>
+            <td>
+                <label for="mail">Mail</label>
+                <input type="text" name="mail" [(ngModel)]="prospect.mail">
+            </td>
+            <td>
+                <label for="telephone">Telephone</label>
+                <input type="text" name="telephone" [(ngModel)]="prospect.telephone">
+            </td>
+        <tr>
+            <td>
+                <label for="statut">Statut</label>
+                <input type="text" name="statut" [(ngModel)]="prospect.statut">
+            </td>
+
+
+            <td> <button type="submit">Enregistrer</button></td>
+        </tr>
+
+
+    </table>
+
+</form>
+<br>
+<a href="menuAdmin"><<< Retour au menu administrateur</a>
+

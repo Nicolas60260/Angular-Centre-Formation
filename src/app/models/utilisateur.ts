@@ -2,6 +2,7 @@ import { Personne } from "./personne";
 
 export class Utilisateur extends Personne {
 
+
 // Attributs spécifiques à la classe Utilisateur 
     username!: string;
     password!: string;
@@ -15,6 +16,7 @@ export class Utilisateur extends Personne {
 
 
 // Appeler le constructeur de la classe parente avec les attributs des classes fille et mère
+
     constructor(
 
         id?: number,
@@ -27,11 +29,15 @@ export class Utilisateur extends Personne {
 
     ) {
         super(id, nom, prenom, mail, telephone);
+
 // Initialiser les attributs propores à la classe Utilisateurs
+
         if (username)
             this.username = username;
         if (password)
             this.password = password;
 
     }
+
 }
+
