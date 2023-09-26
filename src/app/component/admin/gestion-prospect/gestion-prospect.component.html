@@ -31,9 +31,19 @@
     </tbody>
 </table>
 <br>
+<h1>Ajouter / Modifier des prospects</h1>
+
 <br>
+<h2>Ajouter par Fichier csv</h2>
+<label for="fichier">Fichier csv (Attention à l'en-tête)</label>
+<br>
+<input type="file" name="fichier" (change)="onFileSelected($event)">
 <br>
 
+<button (click)="validerCsv()">Envoyer la liste</button>
+<br>
+
+<h2>Ajouter/modifier un prospect par formulaire</h2>
 <form (ngSubmit)="enregistrerProspect()">
     <table>
         <tr>
