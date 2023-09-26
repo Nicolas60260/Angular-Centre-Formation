@@ -1,8 +1,10 @@
+
 import { Commentaire } from "./commentaire";
 import { Commercial } from "./commercial";
 import { Prospect } from "./prospect";
 
 export class Appel {
+
     id!: number;
     debutAppel!: Date;
     duree!: number;
@@ -39,6 +41,7 @@ export class Appel {
         if (prospect) {
             this.prospect = prospect
         }
+
 
     }
 }
