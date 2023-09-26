@@ -9,6 +9,7 @@ import { GestionAppelComponent } from './component/admin/gestion-appel/gestion-a
 import { GestionCommentaireComponent } from './component/admin/gestion-commentaire/gestion-commentaire.component';
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
+import { PageCommercialComponent } from './component/site/page-commercial/page-commercial.component';
 
 
 
@@ -21,7 +22,7 @@ import { GestionFormateurComponent } from './component/admin/gestion-formateur/g
 const routes: Routes = [
 
   
-  {path:'commercial', component:GestionCommercialComponent},
+  {path:'adminCommercial', component:GestionCommercialComponent},
   {path:'utilisateur', component:GestionUtilisateurComponent},
   {path:'menuAdmin',component:MenuAdminComponent},
   {path:'adminFormateur',component:GestionFormateurComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path:'adminAppel',component:GestionAppelComponent},
   {path:'adminCommentaire/:id',component:GestionCommentaireComponent},
   {path:'adminCommentaire',component:GestionCommentaireComponent},
+  {path:'pageCommercial',component:PageCommercialComponent},
   /*
  
   data:{
