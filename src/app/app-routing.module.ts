@@ -8,21 +8,32 @@ import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.comp
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
 import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
 import { PageCoursComponent } from './component/site/page-cours/page-cours.component';
+import { PageCommercialComponent } from './component/site/page-commercial/page-commercial.component';
+import { GestionCommercialComponent } from './component/admin/gestion-commercial/gestion-commercial.component';
+import { GestionUtilisateurComponent } from './component/admin/gestion-utilisateur/gestion-utilisateur.component';
+
 
 const routes: Routes = [
+
+  // Section d'URLs admins
+  {path:'adminCommercial', component:GestionCommercialComponent},
+  {path:'utilisateur', component:GestionUtilisateurComponent},
   {path:'menuAdmin',component:MenuAdminComponent},
   {path:'adminFormateur',component:GestionFormateurComponent},
-  {path:'adminCours',component:GestionCoursComponent},
-  {path:'adminProspect',component:GestionProspectComponent},
   {path:'adminProspect',component:GestionProspectComponent},
   {path:'adminAppel/:id',component:GestionAppelComponent},
   {path:'adminAppel',component:GestionAppelComponent},
   {path:'adminCommentaire/:id',component:GestionCommentaireComponent},
   {path:'adminCommentaire',component:GestionCommentaireComponent},
   {path:'pageCours',component:PageCoursComponent},
+  {path:'pageCommercial',component:PageCommercialComponent},
 ];
 
 @NgModule({
+
+
+  
+  declarations: [],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })

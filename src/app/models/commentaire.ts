@@ -3,6 +3,7 @@ import { Commercial } from "./commercial";
 import { Prospect } from "./prospect";
 
 export class Commentaire {
+
     id?:number;
     texte?:string;
     date?:Date;
@@ -16,6 +17,7 @@ export class Commentaire {
         commercial?:Commercial,
         appel?:Appel,
         prospect?:Prospect){
+
             if (id) {
                 this.id=id
             }
@@ -25,14 +27,18 @@ export class Commentaire {
             if (date) {
                 this.date=date
             }
+
             if (commercial) {
                 this.commercial=commercial
             }
+
             if (appel) {
                 this.appel=appel
             }
             if (prospect) {
                 this.prospect=prospect
             }
+
         }
+
 }

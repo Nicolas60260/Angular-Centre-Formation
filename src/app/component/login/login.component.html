@@ -1,1 +1,14 @@
-<p>login works!</p>
+<form (ngSubmit)="enregistrerUser()">
+
+    username: <input name="username" [(ngModel)]="EnregistrementUser.username"> 
+    password: <input name="password" [(ngModel)]="EnregistrementUser.password">
+
+    <button type="submit">S'enregistrer</button>
+
+</form>
+
+<div *ngIf="erreurConnection==true">
+    <p style="color:red ;">Username ou password incorrect.<br>
+        Veuillez ré-essayer.
+    </p>
+  </div>
