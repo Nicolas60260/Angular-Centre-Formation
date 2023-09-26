@@ -14,6 +14,7 @@ import { GestionCommentaireComponent } from './component/admin/gestion-commentai
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
 import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
+import { PageCommercialComponent } from './component/site/page-commercial/page-commercial.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-c
     GestionCommentaireComponent,
     MenuAdminComponent,
     GestionFormateurComponent,
-    GestionCoursComponent
+    GestionCoursComponent,
+    PageCommercialComponent
   ],
   imports: [
     BrowserModule,

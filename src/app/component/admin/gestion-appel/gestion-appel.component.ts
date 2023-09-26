@@ -84,7 +84,7 @@ export class GestionAppelComponent implements OnInit {
     }
   }
   afficherCommercial() {
-    this.commercialService.getall().subscribe(
+    this.commercialService.getAllCommerciaux().subscribe(
       response => {
         this.listeCommercial = response;
       },
