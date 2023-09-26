@@ -13,6 +13,7 @@ import { GestionCommentaireComponent } from './component/admin/gestion-commentai
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
 import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
+import { PageCoursComponent } from './component/site/page-cours/page-cours.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-c
     GestionCommentaireComponent,
     MenuAdminComponent,
     GestionFormateurComponent,
-    GestionCoursComponent
+    GestionCoursComponent,
+    PageCoursComponent
   ],
   imports: [
     BrowserModule,

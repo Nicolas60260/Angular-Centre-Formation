@@ -7,6 +7,7 @@ import { GestionCommentaireComponent } from './component/admin/gestion-commentai
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
 import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
+import { PageCoursComponent } from './component/site/page-cours/page-cours.component';
 
 const routes: Routes = [
   {path:'menuAdmin',component:MenuAdminComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:'adminAppel',component:GestionAppelComponent},
   {path:'adminCommentaire/:id',component:GestionCommentaireComponent},
   {path:'adminCommentaire',component:GestionCommentaireComponent},
+  {path:'pageCours',component:PageCoursComponent},
 ];
 
 @NgModule({
