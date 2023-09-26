@@ -1,9 +1,11 @@
 import { Component,OnInit } from '@angular/core';
 import { AuthentificationResponse } from 'src/app/models/authentification-response';
+
 import { Utilisateur } from 'src/app/models/utilisateur';
-
-
 import { ConnexionService } from 'src/app/service/securite/connexion.service';
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit{
 
         this.erreurConnection=false;
         this.authResponse=response;
-        console.log(this.authResponse)
+        
         sessionStorage.setItem("token",this.authResponse.jwt);
 
         console.log(sessionStorage.getItem("token"))

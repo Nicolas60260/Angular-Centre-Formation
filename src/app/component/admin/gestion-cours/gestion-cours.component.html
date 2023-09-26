@@ -1,0 +1,45 @@
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Intitulé du cours</th>
+            <th>Durée du cours</th>
+            <th>Fichier du Cours</th>
+            <th>Formations affilées</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of listeCours">
+            <td>{{c.id}}</td>
+            <td>{{c.nom}}</td>
+            <td>{{c.duree}}</td>
+            <td><a [href]="c.urlfichier">{{c.fichier}}</a></td>
+            <td><button>Afficher les formations</button></td>
+            <td><button (click)="modifierCours(c)">Modifier</button></td>
+            <td><button (click)="supprimerCours(c.id)">Supprimer</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Enregistrer / Modifier un cours</h1>
+<form (ngSubmit)="enregistrerCours()" enctype="multipart/form-data">
+    <input type="hidden" name="id" [(ngModel)]="cours.id">
+        <td>
+            <label for="nom">Nom</label>
+            <input type="text" name="nom" [(ngModel)]="cours.nom">
+        </td>
+        <td>
+            <label for="duree">Duree</label>
+            <input type="number" name="duree" [(ngModel)]="cours.duree">
+        </td>
+        <!-- <td>
+            <label for="fichier">Fichier</label>
+            <input type="text" name="fichier" [(ngModel)]="cours.fichier">
+        </td> -->
+        <td>
+            <label for="fichier">Fichier de cours</label>
+            <input type="file" name="fichier" (change)="onFileSelected($event)">
+        </td>
+        <td> <button type="submit">Enregistrer</button></td>
+</form>

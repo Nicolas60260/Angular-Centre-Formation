@@ -70,7 +70,7 @@ export class FormationComponent implements OnInit{
     }
 
     afficherCours(){
-      this.cservice.afficherLesCours().subscribe(
+      this.cservice.getAll().subscribe(
         response =>{
 
           this.ListeCours = response;

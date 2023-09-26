@@ -1,0 +1,84 @@
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Durée</th>
+            <th>RDV ?</th>
+            <th>Commercial</th>
+            <th>Prospect</th>
+            <th>Commentaire</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let a of listeAppel">
+            <td>{{a.id}}</td>
+            <td>{{a.debutAppel | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{a.duree}}</td>
+            <td><span *ngIf="a.rdv ==true; else isNotRDV ">Oui</span></td>
+            <ng-template #isNotRDV>Non</ng-template>
+            <td><span *ngIf="a.commercial !=null">{{a.commercial.nom}}</span></td>
+            <td><span *ngIf="a.prospect !=null">{{a.prospect.nom}}</span></td>
+            <td><span *ngIf="a.commentaire !=null">{{a.commentaire.texte}}</span></td>
+            <td><button (click)="modifierAppel(a)">Modifier</button></td>
+            <td><button   (click)="supprimerAppel(a.id)">Supprimer</button></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<h1>Ajouter / Modifier un appel</h1>
+<form (ngSubmit)="enregistrerAppel()">
+    <table>
+        <tr>
+            <input type="hidden" name="id" [(ngModel)]="appel.id">
+            <td>
+                <label for="date">Date</label>
+                <input type="date" name="date" [ngModel]="appel.debutAppel | date: 'yyyy-MM-dd'" [(ngModel)]="appel.debutAppel ">
+            </td>
+            <td>
+                <label for="heure">Heure</label>
+                <input type="time" name="heure" [(ngModel)]="heure" >
+            </td>
+            <td>
+                <label for="duree">Duree</label>
+                <input type="number" name="duree" [(ngModel)]="appel.duree">
+            </td>
+            <td>
+                <label for="commercial">Commercial</label>
+                <select id="commercial" [(ngModel)]="appel.commercial.id" name="commercial">
+                    <option *ngFor="let commercial of listeCommercial" [value]="commercial.id">{{ commercial.nom }}
+                    </option>
+                </select>
+            </td>
+            <td>
+                <label for="prospect">Prospect</label>
+                <select id="prospect" [(ngModel)]="appel.prospect.id" name="Prospect">
+                    <option *ngFor="let prospect of listeProspect" [value]="prospect.id">{{ prospect.nom }}</option>
+                </select>
+            </td>
+        <tr>
+            <td>
+                <label for="commentaire">Commentaire</label>
+                <textarea id="commentaire" name="commentaire" [(ngModel)]="appel.commentaire.texte" rows="4"></textarea>
+            </td>
+            <td>
+                <label for="RDV">Est-ce un RDV ?</label>
+                <label>
+                    <input type="radio" name="RDV" [(ngModel)]="appel.rdv" value="true">
+                    Oui
+                </label>
+
+                <label>
+                    <input type="radio" name="RDV" [(ngModel)]="appel.rdv" value="false">
+                    Non
+                </label>
+            </td>
+
+            <td> <button type="submit">Enregistrer</button></td>
+        </tr>
+    </table>
+<br>
+<a href="menuAdmin"><<< Retour au menu administrateur</a>
