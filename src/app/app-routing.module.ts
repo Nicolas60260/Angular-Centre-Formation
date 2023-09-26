@@ -6,10 +6,13 @@ import { GestionAppelComponent } from './component/admin/gestion-appel/gestion-a
 import { GestionCommentaireComponent } from './component/admin/gestion-commentaire/gestion-commentaire.component';
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
+import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
 
 const routes: Routes = [
   {path:'menuAdmin',component:MenuAdminComponent},
   {path:'adminFormateur',component:GestionFormateurComponent},
+  {path:'adminCours',component:GestionCoursComponent},
+  {path:'adminProspect',component:GestionProspectComponent},
   {path:'adminProspect',component:GestionProspectComponent},
   {path:'adminAppel/:id',component:GestionAppelComponent},
   {path:'adminAppel',component:GestionAppelComponent},

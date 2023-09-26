@@ -10,6 +10,14 @@ export class CoursService {
   constructor(private http:HttpClient) { }
 
   getAll(){
-    this.http.get<Cours[]>("http://localhost:8018/cours/p/list")
+    return this.http.get<Cours[]>("http://localhost:8018/cours/p/list")
+  }
+
+  addCours(formdata:FormData){
+    return this.http.post("http://localhost:8018/cours/f/add", formdata)
+  }
+
+  deleteCours(id:number){
+    return this.http.delete(`http://localhost:8018/cours/a/delete/${id}`)
   }
 }

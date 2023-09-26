@@ -6,12 +6,14 @@ nom!:string;
 duree!:number;
 fichier!:string;
 formations!:Formation[];
+urlfichier!:string;
 
 constructor(id?:number
     ,nom?:string,
     duree?:number,
     fichier?:string,
-    formations?:Formation[]){
+    formations?:Formation[],
+    urlfichier?:string){
         if (id) {
             this.id=id
         }
@@ -26,6 +28,9 @@ constructor(id?:number
         }
         if (formations) {
             this.formations=formations
+        }
+        if (urlfichier) {
+            this.urlfichier=urlfichier
         }
     }
 
