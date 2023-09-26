@@ -1,6 +1,6 @@
 import { CommaExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Appel } from 'src/app/models/appel';
 import { Commentaire } from 'src/app/models/commentaire';
 import { Commercial } from 'src/app/models/commercial';
@@ -10,25 +10,32 @@ import { CommercialService } from 'src/app/service/site/commercial.service';
 import { ProspectService } from 'src/app/service/site/prospect.service';
 
 @Component({
-  selector: 'app-gestion-appel',
-  templateUrl: './gestion-appel.component.html',
-  styleUrls: ['./gestion-appel.component.css']
+  selector: 'app-page-commercial',
+  templateUrl: './page-commercial.component.html',
+  styleUrls: ['./page-commercial.component.css']
 })
-export class GestionAppelComponent implements OnInit {
+export class PageCommercialComponent implements OnInit{
+//Appels
   listeAppel!: Appel[];
   listeCommercial !: Commercial[];
-  listeProspect !: Prospect[];
+ 
   appel!: Appel;
   idcible!: number;
   heure!: string;
 
-
+  // Prospect
+listeProspect !: Prospect[];
+  prospect !: Prospect;
+  
+  
   constructor(private appelService: AppelService
     , private commercialService: CommercialService
     , private prospectService: ProspectService
-    , private ActRoute: ActivatedRoute) { }
+    , private ActRoute: ActivatedRoute
+    , private router:Router) { }
 
   ngOnInit(): void {
+    this.listeAppel=[];
     this.appel = new Appel();
     this.appel.debutAppel = new Date();
 
@@ -43,7 +50,7 @@ export class GestionAppelComponent implements OnInit {
 
   }
 
-
+//SECTION CONCERNANT L'APPEL
 
   TimeChange() {
     if (this.heure) {
@@ -176,4 +183,56 @@ if (typeof dateAsString === 'string') {
     }
     this.afficherAll();
   }
+
+
+
+  // SECTION CONCERNANT LE PROSPECT
+
+  afficherAllProspect() {
+    this.prospectService.getall().subscribe(
+      response => { this.listeProspect = response },
+      error => (console.error("Impossible d'afficher la liste des prospect"))
+    )
+  }
+  supprimerProspect(id: number) {
+    this.prospectService.deleteProspect(id).subscribe(
+      response => { console.log("Prospect supprimé"), this.afficherAll() },
+      error => console.error("Impossible de supprimer le prospect")
+    )
+  }
+
+  enregistrerProspect(){
+    this.prospectService.addProspect(this.prospect).subscribe(
+      response=>{this.prospect=new Prospect(); this.afficherAll();
+      console.log("Prospect enregistré")},
+      error => {console.error("Impossible d'enregistrer le prospect")}
+    )
+  }
+
+  modifierProsepct(prospect:Prospect){
+    this.prospect=prospect;
+    this.afficherAll()
+  }
+
+  afficherCommentaire(id:number){
+    this.router.navigateByUrl(`adminCommentaire/${id}`)
+  }
+  afficherAppel(id:number){
+    this.router.navigateByUrl(`adminAppel/${id}`)
+  }
+
+// Methodes de gestion de la page 
+
+
+//  Remanier pour récupérer le commercial depuis la session pour get c.id et les appels liés au commercial
+toggleAfficherAppels(id: number) {
+  for (let c of this.listeCommercial) {
+    if (c.id === id) {
+      
+      this.listeAppel = c.appels;
+    } 
+  }
+}
+
+
 }

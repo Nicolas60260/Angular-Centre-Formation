@@ -1,3 +1,4 @@
+
 import { Appel } from "./appel";
 import { Commentaire } from "./commentaire";
 import { Personne } from "./personne";
@@ -26,5 +27,6 @@ export class Prospect extends Personne {
             this.commentaires=commentaires
         }
     }
+
 
 }
