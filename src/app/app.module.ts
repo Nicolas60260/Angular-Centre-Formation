@@ -9,6 +9,7 @@ import { GestionParticipantComponent } from './component/admin/gestion-participa
 import { FormsModule } from '@angular/forms';
 import { MyInterceptorInterceptor } from './my-interceptor.interceptor';
 import { PaiementComponent } from './component/admin/paiement/paiement.component';
+import { FormationComponent } from './component/admin/formation/formation.component';
 
 
 
@@ -18,7 +19,8 @@ import { PaiementComponent } from './component/admin/paiement/paiement.component
     AppComponent,
     LoginComponent,
     GestionParticipantComponent,
-    PaiementComponent
+    PaiementComponent,
+    FormationComponent
   ],
   imports: [
     BrowserModule,

@@ -11,11 +11,11 @@ export class ParticipantService {
 
   afficherParticipant(){
 
-    return this.http.get<Participant[]>("http://localhost:8018/participant/c/f/list");
+    return this.http.get<Participant[]>("http://localhost:8018/participant/cf/list");
   }
   ajouterParticipant(p:Participant){
 
-    return this.http.post<Participant>("http://localhost:8018/participant/c/f/add",p);
+    return this.http.post<Participant>("http://localhost:8018/participant/cf/add",p);
   }
 
   supprimerParticipant(id:number){
@@ -24,6 +24,10 @@ export class ParticipantService {
 
   ParticipantParId(id:number){
     return this.http.get<Participant>(`http://localhost:8018/participant/p/c/f/${id}`);
+  }
+
+  afficherParticipantParIdPaiement(idPaiement:number){
+    return this.http.get<Participant>(`http://localhost:8018/participant/cf/trouverParticipantsParIdPaiement/${idPaiement}`);
   }
 
   

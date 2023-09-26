@@ -6,6 +6,8 @@
         <td>mode</td>
         <td>montant</td>
         <td>Participant</td>
+        <td>Supprimer paiement</td>
+        <td>Modifier paiement</td>
     </tr>
     
     <tr *ngFor = "let p of ListePaiements" >
@@ -14,16 +16,10 @@
         <td>{{p.date}}</td>
         <td>{{p.mode}}</td>
         <td>{{p.montant}}</td>
-        <td>{{p.participant.nom}}</td>
-  <!--
-        <td><button (click)="supprimerParticipant(p.id)">Supprimer ce Participant</button></td>
-        <td><button (click)="modifierParticipant(p)">Modifier ce Participant</button></td>
- -->
-        <!--
-        <td *ngIf="a.categorie!=null; else mi1">{{a.categorie.id}}</td><ng-template #mi1> <td>Pas de categorie associée</td></ng-template>
-        <td *ngIf="a.categorie!=null; else mi2">{{a.categorie.nomCategorie}}</td><ng-template #mi2> <td>Pas de categorie associée</td></ng-template>
-        <td><button (click)="supprimerAnnonce(a.id)">Supprimer cette Annonce</button></td>
-        -->
+        <td><p *ngIf="p.participant!=null">{{p.participant.nom}}</p></td>
+        <td><button (click)="supprimerPaiement(p.id)">Supprimer ce paiement</button></td>
+        <td><button (click)="modifierPaiement(p)">Modifier ce Participant</button></td>
+
 
     </tr>
 </table>
@@ -32,10 +28,19 @@
 <form (ngSubmit)="ajouterPaiement(PaiementAAjouter)">
     id : <input type="number" name="id" [(ngModel)]="PaiementAAjouter.id"> 
     date : <input type="date" name="mail" [(ngModel)]="PaiementAAjouter.date"> 
-    mode : <input type="text" name="nom" [(ngModel)]="PaiementAAjouter.mode">
+    mode de paiement: 
+    <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.mode" name="something">
+        <option>carte bancaire</option>
+        <option>chèque</option>
+        <option>espèce</option>
+      </select>
+
+      
     montant : <input type="number" name="prenom" [(ngModel)]="PaiementAAjouter.montant">
-    <!-- Participant : <input type="number" name="telephone" [(ngModel)]="PaiementAAjouter.participant"> -->
-  
+    participant :
+    <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.participant.id" name="something">
+        <option *ngFor = "let participant of ListeParticipants" [value]="participant.id"> {{participant.nom}} {{participant.prenom}} </option>
+      </select>
     
     <button type="submit">Ajouter Paiement</button>
 </form>

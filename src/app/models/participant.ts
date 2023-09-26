@@ -1,3 +1,4 @@
+import { Formation } from "./formation";
 import { Paiement } from "./paiement";
 
 export class Participant {
@@ -10,11 +11,12 @@ export class Participant {
     password!:string;
     sommeDue!:number
     paiements!:Paiement[];
+    formations!:Formation[];
 
 
 
 
-    constructor(id?:number,mail?:string,nom?:string,prenom?:string,username?:string,password?:string,telephone?:string,sommeDue?:number,paiements?:Paiement[])
+    constructor(id?:number,mail?:string,nom?:string,prenom?:string,username?:string,password?:string,telephone?:string,sommeDue?:number,paiements?:Paiement[],formations?:Formation[])
     {
         
         if(id)
@@ -35,6 +37,8 @@ export class Participant {
         this.sommeDue = sommeDue;
         if(paiements)
         this.paiements = paiements;
+        if(formations)
+        this.formations = formations;
 
     }
 }

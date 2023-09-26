@@ -1,3 +1,5 @@
+import { Cours } from "./cours";
+
 export class Formation {
     id!:number;
     nom!:string;
@@ -6,16 +8,16 @@ export class Formation {
     prix!:number;
     username!:string;
     password!:string;
+    cours!:Cours[];
 
 
 
-    constructor(id?:number,nom?:string,dateDebut?:Date,dateFin?:Date,prix?:number,username?:string,password?:string)
+
+    constructor(id?:number,nom?:string,dateDebut?:Date,dateFin?:Date,prix?:number,username?:string,password?:string,cours?:Cours[])
     {
         
         if(id)
         this.id = id;
-        if(nom)
-        this.nom = nom;
         if(nom)
         this.nom = nom;
         if(dateDebut)
@@ -28,6 +30,8 @@ export class Formation {
         this.username = username;
         if(password)
         this.password = password;
+        if(cours)
+        this.cours = cours;
 
     }
 
