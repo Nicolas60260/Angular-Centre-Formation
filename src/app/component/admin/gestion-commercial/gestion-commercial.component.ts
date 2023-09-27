@@ -112,16 +112,50 @@ En attente mais faisable
 
 
   modifierCommercial(id:number){
-    console.log("Meth modifier, admin gestion Commercial")
-    this.service.getById(id).subscribe(
-      response=>{this.commercial=response
-      }
-    )
+
+
+   // Récupérez l'utilisateur stocké dans sessionStorage
+  const sessionUser = sessionStorage.getItem('username');
+  
+  // Vérifiez le rôle de l'utilisateur
+  if (sessionUser) {
+    const user = JSON.parse(sessionUser);
+    
+    // Maintenant, vous pouvez accéder au rôle de l'utilisateur
+    const role = user.role;
+    
+    // Utilisez le rôle pour gérer les autorisations
+    if (role === 'ADMIN') {
+      // L'utilisateur est un administrateur, vous pouvez effectuer des opérations
+      console.log("L'utilisateur est un administrateur.");
+      
+      // Continuez avec votre logique pour récupérer et modifier le commercial
+      this.service.getById(id).subscribe(
+        response => {
+          this.commercial = response;
+          // Effectuez les opérations nécessaires ici
+        }
+      );
+    } else {
+      // L'utilisateur n'a pas les autorisations nécessaires
+      console.log("L'utilisateur n'est pas un administrateur.");
+      // Vous pouvez afficher un message d'erreur ou effectuer une autre action appropriée.
+    }
+  } else {
+    // L'utilisateur n'est pas connecté ou il n'y a pas de session active
+    console.log("Aucune session d'utilisateur n'est active.");
+    // Vous pouvez afficher un message d'erreur ou effectuer une autre action appropriée.
+  }
+}
+
+
+
+
     // ajouter  dans la réponse ? ?
     // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
  // PENSER A INSERER UNE ALERTE POUR CONFIRMER LE CHOIX DE MODIFICATION PAR SECURITE
  // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-    }
+    
 
 
     //////////////////////////////////////////////////////////////////
