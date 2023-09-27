@@ -75,8 +75,8 @@ export class GestionUtilisateurComponent implements OnInit {
     //////////////////////////////////////////////////////////////////
     ajoutUtilisateur(){
       
-      console.log("Meth ajout user, admin gestion utilisateur")
-      this.utilisateur.password="mdp";
+      console.log("Meth ajout user, admin gestion Utilisateur")
+      
       this.service.insererUtilisateur(this.utilisateur).subscribe(
         response=>{
           this.afficherUtilisateurs();

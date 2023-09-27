@@ -17,7 +17,7 @@ export class PaiementComponent implements OnInit{
   PaiementAAjouter!:Paiement;
   ListeParticipants!:Participant[];
   ParticipantParIdPaiement!:Participant;
-  
+  erreurAjout!:boolean;
 
   constructor(private pservice:PaiementService,private paservice:ParticipantService,private titleService: Title){}
   ngOnInit(): void {
@@ -46,8 +46,16 @@ export class PaiementComponent implements OnInit{
       }
     )
   }
+checkpaiement(p:Paiement){
 
+  if (p.montant == 0 || p.montant == null){
+    this.erreurAjout = true
+   }
+   
+   if (p.montant>0){ this.ajouterPaiement(p)}
+}
   ajouterPaiement(p:Paiement){
+   
     console.log(this.PaiementAAjouter.participant.nom)
     this.pservice.ajouterPaiement(p).subscribe(
       response=>{
