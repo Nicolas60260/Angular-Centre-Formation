@@ -16,4 +16,10 @@ export class ConnexionService {
     return this.http.post<AuthentificationResponse>("http://localhost:8018/login",u);
 
   }
+
+  GetUserByUsername(username:String){
+
+    return this.http.get<Utilisateur>(`http://localhost:8018/utilisateur/public/userByUsername/${username}`);
+
+  }
 }

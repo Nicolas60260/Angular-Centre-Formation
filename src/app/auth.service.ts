@@ -13,7 +13,7 @@ export class AuthService implements CanActivate{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
      
-      if (sessionStorage.getItem('username')!=null) {
+      if (sessionStorage.getItem('user')!=null) {
        
            return true;
        }else{
