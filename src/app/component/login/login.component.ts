@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit{
    }
 
   ngOnInit() : void{// méthode provenant de OnInit à redéfinir
-
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("username");
     this.EnregistrementUser=new Utilisateur();
     
    }
@@ -38,6 +39,8 @@ export class LoginComponent implements OnInit{
         this.authResponse=response;
         
         sessionStorage.setItem("token",this.authResponse.jwt);
+        sessionStorage.setItem("username",this.EnregistrementUser.username);
+       
 
         console.log(sessionStorage.getItem("token"))
         
