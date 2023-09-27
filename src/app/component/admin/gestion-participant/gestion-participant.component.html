@@ -7,7 +7,6 @@
         <td>prenom</td>
         <td>telephone</td>
         <td>username</td>
-        <td>password</td>
         <td>Somme Due totale</td>
         <td>Formations suivies</td>
         <td>Supprimer ce participant</td>
@@ -25,7 +24,6 @@
         <td>{{p.prenom}}</td>
         <td>{{p.telephone}}</td>
         <td>{{p.username}}</td>
-        <td>{{p.password}}</td>
         <td>{{p.sommeDue}}</td>
         <td>
             <tr *ngFor = "let f of p.formations" >
@@ -44,13 +42,13 @@
 <h2>Ajouter/Modifier un participant</h2>
 
 <form  #form="ngForm" (ngSubmit)="ajouterParticipant(form)">
-    id : <input type="number" name="id" [(ngModel)]="ParticipantAAjouter.id"> 
+    id : <input type="number" name="id" [(ngModel)]="ParticipantAAjouter.id" [hidden]="true"> 
     mail : <input type="text" name="mail" [(ngModel)]="ParticipantAAjouter.mail"> 
     nom : <input type="text" name="nom" [(ngModel)]="ParticipantAAjouter.nom">
     prenom : <input type="text" name="prenom" [(ngModel)]="ParticipantAAjouter.prenom">
     telephone : <input type="number" name="telephone" [(ngModel)]="ParticipantAAjouter.telephone">
     username : <input type="text" name="username" [(ngModel)]="ParticipantAAjouter.username">
-    password : <input type="text" name="password" [(ngModel)]="ParticipantAAjouter.password">
+   <!--password : <input type="text" name="password" [(ngModel)]="ParticipantAAjouter.password">--> 
   
     Formation :
       
