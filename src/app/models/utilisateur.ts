@@ -1,4 +1,5 @@
 import { Personne } from "./personne";
+import { Role } from "./role";
 
 export class Utilisateur extends Personne {
 
@@ -6,6 +7,7 @@ export class Utilisateur extends Personne {
 // Attributs spécifiques à la classe Utilisateur 
     username!: string;
     password!: string;
+    role!:Role;
 
 
 
@@ -21,6 +23,7 @@ export class Utilisateur extends Personne {
         telephone?: string,
         username?: string,
         password?: string,
+        role?:Role,
 
     ) {
         super(id, nom, prenom, mail, telephone);
@@ -31,6 +34,8 @@ export class Utilisateur extends Personne {
             this.username = username;
         if (password)
             this.password = password;
+        if (role)
+            this.role = role;
 
     }
 }
