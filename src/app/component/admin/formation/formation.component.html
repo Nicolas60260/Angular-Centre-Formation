@@ -39,7 +39,7 @@
 
 <form (ngSubmit)="ajouterFormation()">
 
-    id : <input type="number" name="id" [(ngModel)]="FormationAAjouter.id"> 
+    id : <input type="number" name="id" [(ngModel)]="FormationAAjouter.id" [hidden]="true"> 
     nom : <input type="text" name="mail" [(ngModel)]="FormationAAjouter.nom"> 
     date début formation : <input type="date" name="nom" [(ngModel)]="FormationAAjouter.dateDebut">
     date fin formation : <input type="date" name="prenom" [(ngModel)]="FormationAAjouter.dateFin">

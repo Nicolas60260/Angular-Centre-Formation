@@ -6,6 +6,7 @@ import { GestionAppelComponent } from './component/admin/gestion-appel/gestion-a
 import { GestionCommentaireComponent } from './component/admin/gestion-commentaire/gestion-commentaire.component';
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
+import { PageCoursComponent } from './component/site/page-cours/page-cours.component';
 import { PageCommercialComponent } from './component/site/page-commercial/page-commercial.component';
 import { GestionCommercialComponent } from './component/admin/gestion-commercial/gestion-commercial.component';
 import { GestionUtilisateurComponent } from './component/admin/gestion-utilisateur/gestion-utilisateur.component';
@@ -24,25 +25,26 @@ import { AuthService } from './auth.service';
 
 
 
-
 const routes: Routes = [
 
   // Section d'URLs admins
+
   {path:'login',component:LoginComponent},
-  {path:'menuAdmin',component:MenuAdminComponent, canActivate: [AuthService]},
-  {path:'adminCommercial', component:GestionCommercialComponent, canActivate: [AuthService]},
-  {path:'adminUtilisateur', component:GestionUtilisateurComponent, canActivate: [AuthService]},
-  {path:'adminFormateur',component:GestionFormateurComponent, canActivate: [AuthService]},
-  {path:'adminProspect',component:GestionProspectComponent, canActivate: [AuthService]},
-  {path:'adminAppel/:id',component:GestionAppelComponent, canActivate: [AuthService]},
-  {path:'adminAppel',component:GestionAppelComponent, canActivate: [AuthService]},
-  {path:'adminCommentaire/:id',component:GestionCommentaireComponent, canActivate: [AuthService]},
-  {path:'adminCommentaire',component:GestionCommentaireComponent, canActivate: [AuthService]},
-  {path:'adminFormation',component:FormationComponent, canActivate: [AuthService]},
-  {path:'adminParticipant',component:GestionParticipantComponent, canActivate: [AuthService]},
-  {path:'adminPaiement',component:PaiementComponent, canActivate: [AuthService]},
-  {path:'pageCours',component:GestionCoursComponent, canActivate: [AuthService]},
-  {path:'pageCommercial',component:PageCommercialComponent, canActivate: [AuthService]},
+  {path:'menuAdmin',component:MenuAdminComponent, canActivate: [AuthService],data: {role:['ADMIN','PARTICIPANT','FORMATEUR','COMMERCIAL']}},
+  {path:'adminCommercial', component:GestionCommercialComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
+  {path:'adminUtilisateur', component:GestionUtilisateurComponent, canActivate: [AuthService],data: {role:['ADMIN']}},
+  {path:'adminFormateur',component:GestionFormateurComponent, canActivate: [AuthService],data: {role:['ADMIN','FORMATEUR']}},
+  {path:'adminProspect',component:GestionProspectComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
+  {path:'adminAppel/:id',component:GestionAppelComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
+  {path:'adminAppel',component:GestionAppelComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
+  {path:'adminCommentaire/:id',component:GestionCommentaireComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
+  {path:'adminCommentaire',component:GestionCommentaireComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
+  {path:'adminFormation',component:FormationComponent, canActivate: [AuthService],data: {role:['ADMIN','FORMATEUR']}},
+  {path:'adminParticipant',component:GestionParticipantComponent, canActivate: [AuthService],data: {role:['ADMIN','PARTICIPANT','FORMATEUR']}},
+  {path:'adminPaiement',component:PaiementComponent, canActivate: [AuthService],data: {role:['ADMIN','PARTICIPANT','COMMERCIAL']}},
+  {path:'adminCours',component:GestionCoursComponent, canActivate: [AuthService],data: {role:['ADMIN','PARTICIPANT','FORMATEUR']}},
+  {path:'pageCommercial',component:PageCommercialComponent, canActivate: [AuthService],data: {role:['ADMIN']}},
+
 ];
 
 

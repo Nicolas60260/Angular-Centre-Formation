@@ -18,29 +18,35 @@
         <td>{{p.montant}}</td>
         <td><p *ngIf="p.participant!=null">{{p.participant.nom}}</p></td>
         <td><button (click)="supprimerPaiement(p.id)">Supprimer ce paiement</button></td>
-        <td><button (click)="modifierPaiement(p)">Modifier ce Participant</button></td>
+        <td><button (click)="modifierPaiement(p)">Modifier ce paiement</button></td>
 
 
     </tr>
 </table>
 <br>
 <h2>Ajouter/Modifier un paiement</h2>
-<form (ngSubmit)="ajouterPaiement(PaiementAAjouter)">
-    id : <input type="number" name="id" [(ngModel)]="PaiementAAjouter.id"> 
-    date : <input type="date" name="mail" [(ngModel)]="PaiementAAjouter.date"> 
+<form (ngSubmit)="checkpaiement(PaiementAAjouter)">
+    <!---->
+    id : <input type="number" name="id" [(ngModel)]="PaiementAAjouter.id" [hidden]="true">
+    date : <input type="date" name="mail" [(ngModel)]="PaiementAAjouter.date" required> 
     mode de paiement: 
-    <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.mode" name="something">
+    <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.mode" name="something" required>
         <option>carte bancaire</option>
         <option>chèque</option>
         <option>espèce</option>
       </select>
 
       
-    montant : <input type="number" name="prenom" [(ngModel)]="PaiementAAjouter.montant">
+    montant : <input type="number" name="prenom" [(ngModel)]="PaiementAAjouter.montant" required>
     participant :
-    <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.participant.id" name="something">
+    <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.participant.id" name="something" required>
         <option *ngFor = "let participant of ListeParticipants" [value]="participant.id"> {{participant.nom}} {{participant.prenom}} </option>
       </select>
     
     <button type="submit">Ajouter Paiement</button>
 </form>
+<div *ngIf="erreurAjout==true">
+    <p style="color:red ;">Erreur de montant<br>
+        Veuillez entrer un montant.
+    </p>
+  </div>

@@ -1,4 +1,5 @@
 import { Personne } from "./personne";
+import { Role } from "./role";
 
 export class Utilisateur extends Personne {
 
@@ -6,13 +7,9 @@ export class Utilisateur extends Personne {
 // Attributs spécifiques à la classe Utilisateur 
     username!: string;
     password!: string;
+    role!:Role;
 
-// Bloc d'attributs issus de Personne
-    override   id!: number;
-    override   nom!: string;
-    override   prenom!: string;
-    override   mail!: string;
-    override telephone!: string;
+
 
 
 // Appeler le constructeur de la classe parente avec les attributs des classes fille et mère
@@ -26,6 +23,7 @@ export class Utilisateur extends Personne {
         telephone?: string,
         username?: string,
         password?: string,
+        role?:Role,
 
     ) {
         super(id, nom, prenom, mail, telephone);
@@ -36,6 +34,8 @@ export class Utilisateur extends Personne {
             this.username = username;
         if (password)
             this.password = password;
+        if (role)
+            this.role = role;
 
     }
 }

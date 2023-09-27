@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Formation } from 'src/app/models/formation';
 import { Paiement } from 'src/app/models/paiement';
 import { Participant } from 'src/app/models/participant';
@@ -25,16 +26,18 @@ export class GestionParticipantComponent implements OnInit{
   checkboxValue: boolean = false;
   PrixDueTotal:number=0;
 
-  constructor(private pservice:ParticipantService,private fservice:FormationService){}
+  constructor(private pservice:ParticipantService,private fservice:FormationService
+    ,private titleService: Title){}
 
   ngOnInit() : void{// méthode provenant de OnInit à redéfinir
-   
+   this.titleService.setTitle("Gestion des participants")
     this.afficherLesParticipants();
     this.ParticipantAAjouter=new Participant();
     this.ParticipantAAjouter.formations=[];
     this.ListePaiement=[];
     this.afficherFormations();
     this.listeIdFormation = [];
+   //this.ListeParticipant=[];
     // this.checkboxValue= false;
     
    }
@@ -44,6 +47,7 @@ export class GestionParticipantComponent implements OnInit{
     this.pservice.afficherParticipant().subscribe(
       response => {
         this.ListeParticipant = response;
+        console.log(this.ListeParticipant);
         for (let i=0;i<this.ListeParticipant.length;i++){
           for (let j=0;j<this.ListeParticipant[i].formations.length;j++){
             this.PrixDueTotal +=  this.ListeParticipant[i].formations[j].prix

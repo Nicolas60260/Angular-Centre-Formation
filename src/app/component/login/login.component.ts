@@ -1,7 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthentificationResponse } from 'src/app/models/authentification-response';
-
 import { Utilisateur } from 'src/app/models/utilisateur';
 import { ConnexionService } from 'src/app/service/securite/connexion.service';
 
@@ -14,27 +15,30 @@ import { ConnexionService } from 'src/app/service/securite/connexion.service';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit{
-  
-  EnregistrementUser!:Utilisateur;
-  authResponse!:AuthentificationResponse;
-  erreurConnection!:boolean;
+export class LoginComponent implements OnInit {
 
-  constructor(private cservice:ConnexionService,private router:Router) {
-    
-   }
 
-  ngOnInit() : void{// méthode provenant de OnInit à redéfinir
+  EnregistrementUser!: Utilisateur;
+  authResponse!: AuthentificationResponse;
+  erreurConnection!: boolean;
+
+
+  constructor(private cservice: ConnexionService, private router: Router,private titleService: Title) {
+
+  }
+
+  ngOnInit(): void {// méthode provenant de OnInit à redéfinir
+    this.titleService.setTitle("Page de connection")
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("username");
-    this.EnregistrementUser=new Utilisateur();
-    
-   }
+    this.EnregistrementUser = new Utilisateur();
 
-   enregistrerUser(){
-    
+  }
+
+  enregistrerUser() {
+
     this.cservice.CatchToken(this.EnregistrementUser).subscribe(
-      response=>{
+      response => {
 
         this.erreurConnection=false;
         this.authResponse=response;
@@ -60,13 +64,13 @@ export class LoginComponent implements OnInit{
         
         
       },
-      error=>{
-        
-        this.erreurConnection=true;
+      error => {
+
+        this.erreurConnection = true;
       }
     )
-    
-  
+
+
   }
 
 

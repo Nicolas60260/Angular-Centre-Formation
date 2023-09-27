@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Formateur } from 'src/app/models/formateur';
 import { FormateurService } from 'src/app/service/site/formateur.service';
 import { ProspectService } from 'src/app/service/site/prospect.service';
@@ -12,9 +13,10 @@ export class GestionFormateurComponent implements OnInit{
   formateur!:Formateur;
   listeFormateur!:Formateur[];
 
-  constructor(private formateurService:FormateurService, private prospectService: ProspectService){}
+  constructor(private formateurService:FormateurService, private prospectService: ProspectService,private titleService: Title){}
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gestion des formateurs")
     this.afficherAll();
     this.formateur = new Formateur();
   }

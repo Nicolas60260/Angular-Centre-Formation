@@ -33,7 +33,7 @@
 <form (ngSubmit)="enregistrerFormateur()">
 <table>
     <tr>
-        <input type="hidden" name="id" [(ngModel)]="formateur.id">
+        <input type="hidden" name="id" [(ngModel)]="formateur.id" [hidden]="true">
         <td>
             <label for="nom">Nom</label>
             <input type="text" name="nom" [(ngModel)]="formateur.nom">

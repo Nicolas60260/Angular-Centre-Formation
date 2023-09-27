@@ -1,0 +1,12 @@
+<table>
+    <thead>
+        <h2>Liste des cours</h2>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of listeCours">
+            <td>{{c.id}}</td>
+            <td><a [href]="c.urlfichier">{{c.nom}}</a></td>
+            <td>Temps estimé : {{c.duree}} heures</td>
+        </tr>
+    </tbody>
+</table>

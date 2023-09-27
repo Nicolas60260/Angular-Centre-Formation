@@ -14,7 +14,9 @@ export class ConnexionService {
   CatchToken(u:Utilisateur){
 
     return this.http.post<AuthentificationResponse>("http://localhost:8018/login",u);
-
+  }
+  getUser(username: string) {
+    return this.http.get<Utilisateur>(`http://localhost:8018/utilisateur/public/${username}`)
   }
 
   GetUserByUsername(username:String){

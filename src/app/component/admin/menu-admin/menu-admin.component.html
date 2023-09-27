@@ -1,5 +1,9 @@
 <h1>Page Administrateur</h1>
 
+<a href="adminUtilisateur">Menu utilisateurs</a>
+<br>
+<a *ngIf="user.role.nom==('COMMERCIAL'||'ADMIN')" href="adminCommercial">Menu commerciaux</a>
+<br>
 <a href="adminProspect">Menu Prospect</a>
 <br>
 <a href="adminAppel">Menu Appel</a>
@@ -13,6 +17,10 @@
 <a href="adminCours">Menu Cours</a>
 <br>
 
-<a href="adminCommercial">Menu commerciaux</a>
+<a href="adminParticipant">Menu participant</a>
+<br>
+<a href="adminPaiement">Menu paiement</a>
+<br>
+<a href="adminFormation">Menu formation</a>
 <br>
 

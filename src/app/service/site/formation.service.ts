@@ -14,6 +14,10 @@ export class FormationService {
     return this.http.get<Formation[]>("http://localhost:8018/formation/public/list");
 
   }
+  
+  afficherFormationParCours(id:number){
+    return this.http.get<Formation[]>(`http://localhost:8018/formation/a/cours/${id}`)
+  }
 
   supprimerLesFormations(id:number){
     return this.http.delete<Formation>(`http://localhost:8018/formation/a/delete/${id}`);
