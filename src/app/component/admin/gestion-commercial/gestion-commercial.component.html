@@ -1,7 +1,7 @@
 <h1>Gestion Admin pour Commerciaux</h1>
 
 <h3>Entrée d'un nouveau Commercial</h3>
-<form (ngSubmit)="ajoutCommercial()">
+<form (ngSubmit)="ajoutCommercial()" *ngIf="commercial.role.nom==('COMMERCIAL'||'ADMIN')">
     <input type="hidden" name="id" [(ngModel)]="commercial.id">
     Nom : <input type="text" name="nom" [(ngModel)]="commercial.nom"> <br>
     Prenom : <input type="text" name="prenom" [(ngModel)]="commercial.prenom"> <br>
