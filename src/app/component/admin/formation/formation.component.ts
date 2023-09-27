@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Cours } from 'src/app/models/cours';
 import { Formation } from 'src/app/models/formation';
+import { Utilisateur } from 'src/app/models/utilisateur';
 import { CoursService } from 'src/app/service/site/cours.service';
 import { FormationService } from 'src/app/service/site/formation.service';
 
@@ -15,6 +16,7 @@ export class FormationComponent implements OnInit{
   FormationAAjouter!:Formation
   ListeCours!:Cours[]
   ListeIdCours!:number[]
+  user!:Utilisateur
 
   constructor(private fservice:FormationService, private cservice: CoursService){}
 
@@ -24,6 +26,8 @@ export class FormationComponent implements OnInit{
     this.FormationAAjouter.cours = []
     this.afficherCours();
     this.ListeIdCours=[];
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
     }
 
     afficherFormation(){

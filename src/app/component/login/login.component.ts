@@ -48,11 +48,13 @@ export class LoginComponent implements OnInit {
 
         this.cservice.GetUserByUsername(this.EnregistrementUser.username).subscribe(
           response2 =>{
+
             response2.password="you can not read the password";
+
+            sessionStorage.setItem("username",response2.username);
+            
             sessionStorage.setItem("user",JSON.stringify(response2));
-            console.log(sessionStorage.getItem("user"))
-            console.log(sessionStorage.getItem("token"))
-            console.log("test a")
+          
         this.router.navigateByUrl(`menuAdmin`);
           }
         )
