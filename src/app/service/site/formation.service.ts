@@ -18,9 +18,11 @@ export class FormationService {
   supprimerLesFormations(id:number){
     return this.http.delete<Formation>(`http://localhost:8018/formation/a/delete/${id}`);
   }
-  
+
   ajouterFormation(f:Formation){
     return this.http.post<Formation>(`http://localhost:8018/formation/f/add`,f);
   }
+
+
 
 }
