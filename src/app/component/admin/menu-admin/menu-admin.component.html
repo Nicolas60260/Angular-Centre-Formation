@@ -2,7 +2,7 @@
 
 <a href="adminUtilisateur">Menu utilisateurs</a>
 <br>
-<a href="adminCommercial">Menu commerciaux</a>
+<a *ngIf="user.role.nom==('COMMERCIAL'||'ADMIN')" href="adminCommercial">Menu commerciaux</a>
 <br>
 <a href="adminProspect">Menu Prospect</a>
 <br>
