@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Prospect } from 'src/app/models/prospect';
 import { ProspectService } from 'src/app/service/site/prospect.service';
@@ -14,10 +15,14 @@ export class GestionProspectComponent implements OnInit {
   csvfile!: File;
   fileContent: string | undefined;
 
-  constructor(private prospectService: ProspectService, private route: Router) { }
+  // constructor(private titleService: Title) {}
+
+  constructor(private prospectService: ProspectService, private route: Router,private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gestion des prospects")
     this.afficherAll(),
+    
       this.prospect = new Prospect()
   }
 

@@ -2,7 +2,7 @@
 
 <h3>Entrée d'un nouveau Commercial</h3>
 <form (ngSubmit)="ajoutCommercial()">
-    
+    <input type="hidden" name="id" [(ngModel)]="commercial.id">
     Nom : <input type="text" name="nom" [(ngModel)]="commercial.nom"> <br>
     Prenom : <input type="text" name="prenom" [(ngModel)]="commercial.prenom"> <br>
     Mail : <input type="text" name="mail" [(ngModel)]="commercial.mail"> <br>
@@ -31,7 +31,6 @@
 <td>Telephone</td>
 <!--Section boutons administrateur, gestion du profil-->
 <td>Acces liste appels</td>
-<td>Acces liste prospect</td>
 <td>Modifier Commercial </td>
 <td>SupprimerCommercial</td>
 

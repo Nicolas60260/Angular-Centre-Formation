@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Appel } from 'src/app/models/appel';
 import { Commercial } from 'src/app/models/commercial';
@@ -27,14 +28,14 @@ export class GestionCommercialComponent implements OnInit {
   listeAppels!:Appel[];
 
 
-  constructor(private service:CommercialService, private router:Router){
+  constructor(private service:CommercialService, private router:Router,private titleService: Title){
   
   }
 
  
   
     ngOnInit(): void {
-
+      this.titleService.setTitle("Gestion des commerciaux")
       this.commercial= new Commercial();
      this.listeAppels=[];
       this.listeCommercial=[];

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Utilisateur } from 'src/app/models/utilisateur';
 import { UtilisateurService } from 'src/app/service/utilisateur.service';
@@ -17,7 +18,7 @@ export class GestionUtilisateurComponent implements OnInit {
 // TRADUCTION MANUELLE OBLIGATOIRE EN SAHHH
 
   listeUtilisateur!:Utilisateur[];
-  Utilisateur!:Utilisateur;
+  utilisateur!:Utilisateur;
 
   
   username!:string;
@@ -33,17 +34,19 @@ export class GestionUtilisateurComponent implements OnInit {
 
 
 
-  constructor(private service:UtilisateurService, private router:Router){
+  constructor(private service:UtilisateurService, private router:Router
+    ,private titleService: Title,){
   
   }
 
   
   
     ngOnInit(): void {
+      this.titleService.setTitle("Gestion des utilisateurs")
       this.listeUtilisateur=[];
       this.afficherUtilisateurs();
       
-      this.Utilisateur= new Utilisateur;
+      this.utilisateur= new Utilisateur();
       
       
      
@@ -59,9 +62,9 @@ export class GestionUtilisateurComponent implements OnInit {
     afficherUtilisateurs(){
       console.log("Meth afficher users, admin gestion Utilisateur")
       this.service.getAllUtilisateurs().subscribe(
-        response=>{this.listeUtilisateur=response
-        
-    })
+        response=>{this.listeUtilisateur=response},
+        error=>{console.error("Impossible d'afficher la liste des utilisateurs");
+        })
   }
 
 
@@ -72,12 +75,12 @@ export class GestionUtilisateurComponent implements OnInit {
     //////////////////////////////////////////////////////////////////
     ajoutUtilisateur(){
       
-      console.log("Meth ajout user, admin gestion Utilisateur")
-      this.Utilisateur.password="mdp";
-      this.service.insererUtilisateur(this.Utilisateur).subscribe(
+      console.log("Meth ajout user, admin gestion utilisateur")
+      this.utilisateur.password="mdp";
+      this.service.insererUtilisateur(this.utilisateur).subscribe(
         response=>{
           this.afficherUtilisateurs();
-          this.Utilisateur=new Utilisateur();
+          this.utilisateur=new Utilisateur();
          
       })
 
@@ -89,21 +92,23 @@ export class GestionUtilisateurComponent implements OnInit {
     //////////////////////////////////////////////////////////////////
 
 
-  modifierUtilisateur(id:number){
-    console.log("Meth modifier, admin gestion Utilisateur")
-    this.service.getById(id).subscribe(
-      response=>this.Utilisateur=response
-    )
-    // ajouter this.afficherUtilisateurs() dans la réponse ? ?
-    // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
- // PENSER A INSERER UNE ALERTE POUR CONFIRMER LE CHOIX DE MODIFICATION PAR SECURITE
- // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-    }
+  modifierUtilisateur(utilisateur:Utilisateur){
+    this.utilisateur = utilisateur,
+  this.afficherUtilisateurs()}
+//     console.log("Meth modifier, admin gestion utilisateur")
+//     this.service.getById(id).subscribe(
+//       response=>this.utilisateur=response
+//     )
+//     // ajouter this.afficherUtilisateurs() dans la réponse ? ?
+//     // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+//  // PENSER A INSERER UNE ALERTE POUR CONFIRMER LE CHOIX DE MODIFICATION PAR SECURITE
+//  // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+//     }
 
 
-    //////////////////////////////////////////////////////////////////
-////////////////////Methode de suppression///////////////////////
-//////////////////////////////////////////////////////////////////
+//     //////////////////////////////////////////////////////////////////
+// ////////////////////Methode de suppression///////////////////////
+// //////////////////////////////////////////////////////////////////
 
 
 supprimerUtilisateur(id:number){
@@ -124,7 +129,7 @@ selectUtilisateurParId(id:number){
   console.log("Meth selec par Id, admin gestion Utilisateur")
 this.service.getById(id).subscribe(
   response=>{
-    this.Utilisateur=response
+    this.utilisateur=response
   },
   error=>console.log("erreur lors de la recherche")
 )

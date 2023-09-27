@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Cours } from 'src/app/models/cours';
+import { Formation } from 'src/app/models/formation';
 import { CoursService } from 'src/app/service/site/cours.service';
+import { FormationService } from 'src/app/service/site/formation.service';
 
 @Component({
   selector: 'app-gestion-cours',
@@ -10,13 +13,14 @@ import { CoursService } from 'src/app/service/site/cours.service';
 export class GestionCoursComponent implements OnInit {
 listeCours!:Cours[];
 cours!:Cours;
-selectedFile!: File;
+selectedFile!: File | undefined;
 
-constructor(private coursService:CoursService){}
+constructor(private coursService:CoursService,private fService:FormationService,private titleService: Title){}
 
   ngOnInit(): void {
   this.afficherAll();
   this.cours=new Cours();
+  this.titleService.setTitle("Gestion des cours")
   }
 
   onFileSelected(event:any){
@@ -27,12 +31,19 @@ constructor(private coursService:CoursService){}
     this.coursService.getAll().subscribe(
       response=>{this.listeCours=response,
       this.listeCours.forEach(cours => {
-        cours.urlfichier = "http://localhost:8018/dossiercours/" + cours.fichier
+        cours.urlfichier = "http://localhost:8018/dossiercours/" + cours.fichier;
+        this.fService.afficherFormationParCours(cours.id).subscribe(
+          response => {cours.formations = response},
+          error=>{console.error("impossible d'attribuer les cours");
+          }
+        )
       })},
       error=>{console.error("Impossible d'afficher la liste des cours");
       }
     )
   }
+
+  
 
   enregistrerCours(){
     let formdata = new FormData();
@@ -54,7 +65,10 @@ constructor(private coursService:CoursService){}
     formdata.append('nom', this.cours.nom);
 
     this.coursService.addCours(formdata).subscribe(
-      response=>{console.log("Cours enregistré"), this.afficherAll(), this.cours= new Cours()},
+      response=>{console.log("Cours enregistré")
+      , this.afficherAll()
+      , this.cours= new Cours(),
+       this.selectedFile = undefined},
       error=>{console.error("Impossible d'enregistrer le cours");
       }
     )

@@ -3,12 +3,12 @@
 <h3>Entrée d'un nouvel Utilisateur</h3>
 <h6>Mot de passe configuré par défaut </h6>
 <form (ngSubmit)="ajoutUtilisateur()">
-    
-    Nom : <input type="text" name="nom" [(ngModel)]="Utilisateur.nom"> <br>
-    Prenom : <input type="text" name="prenom" [(ngModel)]="Utilisateur.prenom"> <br>
-    Mail : <input type="text" name="mail" [(ngModel)]="Utilisateur.mail"> <br>
-    Telephone : <input type="text" name="telephone" [(ngModel)]="Utilisateur.telephone"> <br>
-    Nom_Utilisateur : <input type="text" name="username" [(ngModel)]="Utilisateur.username"> <br>
+    <input type="hidden" name="id" [(ngModel)]="utilisateur.id">
+    Nom : <input type="text" name="nom" [(ngModel)]="utilisateur.nom"> <br>
+    Prenom : <input type="text" name="prenom" [(ngModel)]="utilisateur.prenom" required> <br>
+    Mail : <input type="text" name="mail" [(ngModel)]="utilisateur.mail"> <br>
+    Telephone : <input type="text" name="telephone" [(ngModel)]="utilisateur.telephone"> <br>
+    Nom_utilisateur : <input type="text" name="username" [(ngModel)]="utilisateur.username"> <br>
     <!-- Même l'admin n'est pas censé pouvoir connaitre le mdp des utilisateurs-->
     <!--Mot_de_passe : <input type="text" name="password" [(ngModel)]="commercial.password"> <br>-->
     
@@ -49,7 +49,7 @@
         <td>{{u.mail}}</td>
         <td> {{u.telephone}}</td>
     
-       <td><button (click)="modifierUtilisateur(u.id)">Modifier</button> </td>
+       <td><button (click)="modifierUtilisateur(u)">Modifier</button> </td>
        <td><button (click)="supprimerUtilisateur(u.id)">Supprimer</button> </td>
         
         

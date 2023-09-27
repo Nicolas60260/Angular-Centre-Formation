@@ -4,6 +4,7 @@ import { PaiementService } from 'src/app/service/site/paiement.service';
 import { Component,OnInit } from '@angular/core';
 import { Participant } from 'src/app/models/participant';
 import { ParticipantService } from 'src/app/service/site/participant.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-paiement',
@@ -18,9 +19,9 @@ export class PaiementComponent implements OnInit{
   ParticipantParIdPaiement!:Participant;
   
 
-  constructor(private pservice:PaiementService,private paservice:ParticipantService){}
+  constructor(private pservice:PaiementService,private paservice:ParticipantService,private titleService: Title){}
   ngOnInit(): void {
-
+    this.titleService.setTitle("Gestion participant")
     this.afficherPaiements();
     this.PaiementAAjouter=new Paiement();
     this.PaiementAAjouter.participant=new Participant();
