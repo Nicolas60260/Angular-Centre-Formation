@@ -15,7 +15,7 @@
             <td>{{c.nom}}</td>
             <td>{{c.duree}}</td>
             <td><a [href]="c.urlfichier">{{c.fichier}}</a></td>
-            <td><button>Afficher les formations</button></td>
+            <td><span *ngFor="let f of c.formations">{{f.id}},</span></td>
             <td><button (click)="modifierCours(c)">Modifier</button></td>
             <td><button (click)="supprimerCours(c.id)">Supprimer</button></td>
         </tr>
@@ -33,10 +33,6 @@
             <label for="duree">Duree</label>
             <input type="number" name="duree" [(ngModel)]="cours.duree">
         </td>
-        <!-- <td>
-            <label for="fichier">Fichier</label>
-            <input type="text" name="fichier" [(ngModel)]="cours.fichier">
-        </td> -->
         <td>
             <label for="fichier">Fichier de cours</label>
             <input type="file" name="fichier" (change)="onFileSelected($event)">

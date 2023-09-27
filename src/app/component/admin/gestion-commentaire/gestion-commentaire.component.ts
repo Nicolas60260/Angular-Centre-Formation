@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Appel } from 'src/app/models/appel';
 import { Commentaire } from 'src/app/models/commentaire';
@@ -27,9 +28,11 @@ export class GestionCommentaireComponent implements OnInit {
     , private commercialService: CommercialService
     , private prospectService: ProspectService
     , private appelService: AppelService
-    , private ActRoute: ActivatedRoute) { }
+    , private ActRoute: ActivatedRoute
+    ,private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gestion des commentaires")
     this.idcible = this.ActRoute.snapshot.params["id"];
     this.afficherAll();
     this.afficherCommercial();

@@ -7,12 +7,7 @@ export class Utilisateur extends Personne {
     username!: string;
     password!: string;
 
-// Bloc d'attributs issus de Personne
-    override   id!: number;
-    override   nom!: string;
-    override   prenom!: string;
-    override   mail!: string;
-    override telephone!: string;
+
 
 
 // Appeler le constructeur de la classe parente avec les attributs des classes fille et mère

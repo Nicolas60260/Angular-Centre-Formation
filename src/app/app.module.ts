@@ -17,6 +17,7 @@ import { GestionCommentaireComponent } from './component/admin/gestion-commentai
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
 import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
+import { PageCoursComponent } from './component/site/page-cours/page-cours.component';
 import { PageCommercialComponent } from './component/site/page-commercial/page-commercial.component';
 
 
@@ -36,6 +37,7 @@ import { PageCommercialComponent } from './component/site/page-commercial/page-c
     MenuAdminComponent,
     GestionFormateurComponent,
     GestionCoursComponent,
+    PageCoursComponent,
     PageCommercialComponent
   ],
   imports: [

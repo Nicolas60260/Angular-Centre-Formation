@@ -6,6 +6,7 @@ import { GestionAppelComponent } from './component/admin/gestion-appel/gestion-a
 import { GestionCommentaireComponent } from './component/admin/gestion-commentaire/gestion-commentaire.component';
 import { MenuAdminComponent } from './component/admin/menu-admin/menu-admin.component';
 import { GestionFormateurComponent } from './component/admin/gestion-formateur/gestion-formateur.component';
+import { PageCoursComponent } from './component/site/page-cours/page-cours.component';
 import { PageCommercialComponent } from './component/site/page-commercial/page-commercial.component';
 import { GestionCommercialComponent } from './component/admin/gestion-commercial/gestion-commercial.component';
 import { GestionUtilisateurComponent } from './component/admin/gestion-utilisateur/gestion-utilisateur.component';

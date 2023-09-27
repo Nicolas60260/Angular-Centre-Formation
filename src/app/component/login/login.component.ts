@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AuthentificationResponse } from 'src/app/models/authentification-response';
 
 import { Utilisateur } from 'src/app/models/utilisateur';
@@ -19,11 +20,12 @@ export class LoginComponent implements OnInit{
   authResponse!:AuthentificationResponse;
   erreurConnection!:boolean;
 
-  constructor(private cservice:ConnexionService) {
+  constructor(private cservice:ConnexionService,private titleService: Title) {
     
    }
 
   ngOnInit() : void{// méthode provenant de OnInit à redéfinir
+    this.titleService.setTitle("Page de connection")
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("username");
     this.EnregistrementUser=new Utilisateur();

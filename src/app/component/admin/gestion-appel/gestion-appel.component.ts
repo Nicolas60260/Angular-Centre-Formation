@@ -1,5 +1,6 @@
 import { CommaExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Appel } from 'src/app/models/appel';
 import { Commentaire } from 'src/app/models/commentaire';
@@ -26,9 +27,11 @@ export class GestionAppelComponent implements OnInit {
   constructor(private appelService: AppelService
     , private commercialService: CommercialService
     , private prospectService: ProspectService
-    , private ActRoute: ActivatedRoute) { }
+    , private ActRoute: ActivatedRoute
+    ,private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gestion des appels")
     this.appel = new Appel();
     this.appel.debutAppel = new Date();
 
