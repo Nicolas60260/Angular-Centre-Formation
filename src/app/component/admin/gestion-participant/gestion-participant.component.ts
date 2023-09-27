@@ -35,6 +35,7 @@ export class GestionParticipantComponent implements OnInit{
     this.ListePaiement=[];
     this.afficherFormations();
     this.listeIdFormation = [];
+   //this.ListeParticipant=[];
     // this.checkboxValue= false;
     
    }
@@ -44,6 +45,7 @@ export class GestionParticipantComponent implements OnInit{
     this.pservice.afficherParticipant().subscribe(
       response => {
         this.ListeParticipant = response;
+        console.log(this.ListeParticipant);
         for (let i=0;i<this.ListeParticipant.length;i++){
           for (let j=0;j<this.ListeParticipant[i].formations.length;j++){
             this.PrixDueTotal +=  this.ListeParticipant[i].formations[j].prix

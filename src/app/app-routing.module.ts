@@ -24,10 +24,10 @@ import { AuthService } from './auth.service';
 
 
 
-
 const routes: Routes = [
 
   // Section d'URLs admins
+
   {path:'login',component:LoginComponent},
   {path:'menuAdmin',component:MenuAdminComponent, canActivate: [AuthService]},
   {path:'adminCommercial', component:GestionCommercialComponent, canActivate: [AuthService]},
@@ -43,6 +43,7 @@ const routes: Routes = [
   {path:'adminPaiement',component:PaiementComponent, canActivate: [AuthService]},
   {path:'pageCours',component:GestionCoursComponent, canActivate: [AuthService]},
   {path:'pageCommercial',component:PageCommercialComponent, canActivate: [AuthService]},
+
 ];
 
 
