@@ -18,4 +18,10 @@ export class ConnexionService {
   getUser(username: string) {
     return this.http.get<Utilisateur>(`http://localhost:8018/utilisateur/public/${username}`)
   }
+
+  GetUserByUsername(username:String){
+
+    return this.http.get<Utilisateur>(`http://localhost:8018/utilisateur/public/userByUsername/${username}`);
+
+  }
 }

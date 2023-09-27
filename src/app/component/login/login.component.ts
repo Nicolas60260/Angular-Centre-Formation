@@ -1,8 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthentificationResponse } from 'src/app/models/authentification-response';
-
 import { Utilisateur } from 'src/app/models/utilisateur';
 import { ConnexionService } from 'src/app/service/securite/connexion.service';
 
@@ -17,9 +17,11 @@ import { ConnexionService } from 'src/app/service/securite/connexion.service';
 
 export class LoginComponent implements OnInit {
 
+
   EnregistrementUser!: Utilisateur;
   authResponse!: AuthentificationResponse;
   erreurConnection!: boolean;
+
 
   constructor(private cservice: ConnexionService, private router: Router,private titleService: Title) {
 
@@ -38,22 +40,29 @@ export class LoginComponent implements OnInit {
     this.cservice.CatchToken(this.EnregistrementUser).subscribe(
       response => {
 
-        this.erreurConnection = false;
-        this.authResponse = response;
+        this.erreurConnection=false;
+        this.authResponse=response;
+        
+        sessionStorage.setItem("token",this.authResponse.jwt);
 
-        sessionStorage.setItem("token", this.authResponse.jwt);
-        sessionStorage.setItem("username", this.EnregistrementUser.username);
 
-        this.cservice.getUser(this.EnregistrementUser.username).subscribe(
-          response2=> {
-            this.EnregistrementUser=response2, 
-            sessionStorage.setItem('user',JSON.stringify(this.EnregistrementUser));
-            this.router.navigateByUrl('menuAdmin')
+        this.cservice.GetUserByUsername(this.EnregistrementUser.username).subscribe(
+          response2 =>{
+            response2.password="you can not read the password";
+            sessionStorage.setItem("user",JSON.stringify(response2));
+            console.log(sessionStorage.getItem("user"))
+            console.log(sessionStorage.getItem("token"))
+            console.log("test a")
+        this.router.navigateByUrl(`menuAdmin`);
           }
         )
-        console.log(sessionStorage.getItem("token"))
+        
+       
+        
 
-
+        
+        
+        
       },
       error => {
 
