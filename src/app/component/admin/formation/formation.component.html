@@ -7,14 +7,15 @@
         <td>date début formation</td>
         <td>date fin formation</td>
         <td>prix</td>
-        <td>Cours Associés à la formation</td>
+        <td>Cours Associés </td>
+        <td>Formateur</td>
         <td>Supprimer Formation</td>
         <td>Modifier Formation</td>
-        <td>Enlever Cours d'une formation</td>
+        <td>Enlever Cours </td>
 
     </tr>
-    
-    <tr *ngFor = "let f of ListeFormation" >
+
+    <tr *ngFor="let f of ListeFormation">
 
         <td>{{f.id}}</td>
         <td>{{f.nom}}</td>
@@ -22,13 +23,14 @@
         <td>{{f.dateFin}}</td>
         <td>{{f.prix}}</td>
         <td>
-            <tr *ngFor = "let c of f.cours" >
-                <td>{{c.nom}}</td>
-            </tr>
-        </td> 
-        <td><button (click)="supprimerFormation(f.id)">Supprimer cette formation</button></td>
-        <td><button (click)="modifierFormation(f)">Modifier cette formation</button></td>
-        <td><button (click)="EnleverCoursFormations(f)">Enlever tous les cours des formations</button></td>
+    <tr *ngFor="let c of f.cours">
+        <td>{{c.nom}},</td>
+    </tr>
+    </td>
+    <td><span *ngIf="f.formateur!=null">{{f.formateur.nom}}</span></td>
+    <td><button (click)="supprimerFormation(f.id)">Supprimer cette formation</button></td>
+    <td><button (click)="modifierFormation(f)">Modifier cette formation</button></td>
+    <td><button (click)="EnleverCoursFormations(f)">Enlever tous les cours des formations</button></td>
 
     </tr>
 </table>
@@ -39,17 +41,19 @@
 
 <form (ngSubmit)="ajouterFormation()">
 
-    id : <input type="number" name="id" [(ngModel)]="FormationAAjouter.id" [hidden]="true"> 
-    nom : <input type="text" name="mail" [(ngModel)]="FormationAAjouter.nom"> 
+    id : <input type="number" name="id" [(ngModel)]="FormationAAjouter.id" [hidden]="true">
+    nom : <input type="text" name="mail" [(ngModel)]="FormationAAjouter.nom">
     date début formation : <input type="date" name="nom" [(ngModel)]="FormationAAjouter.dateDebut">
     date fin formation : <input type="date" name="prenom" [(ngModel)]="FormationAAjouter.dateFin">
     prix : <input type="number" name="prix" [(ngModel)]="FormationAAjouter.prix">
-    cours : 
-    
+    cours :
+
     <div *ngFor="let cours of ListeCours">
         <input type="checkbox" (change)="toggleSelection(cours.id)" [checked]="ListeIdCours.includes(cours.id)">
         {{cours.nom}}
-      </div>
-   
+    </div>
+    formateur:  <select id="formateur" [(ngModel)]="FormationAAjouter.formateur.id" name="formateur">
+        <option *ngFor="let formateur of ListeFormateur" [value]="formateur.id">{{ formateur.nom }}</option>
+    </select>
     <button type="submit">Ajouter/Modifier Formation</button>
 </form>

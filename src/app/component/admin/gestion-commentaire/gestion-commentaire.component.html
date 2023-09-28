@@ -1,67 +1,117 @@
-<table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Texte</th>
-            <th>Date</th>
-            <th>Commercial</th>
-            <th>Prospect</th>
-            <th>Appel</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let com of listeCommentaire">
-            <td>{{com.id}}</td>
-            <td>{{com.texte}}</td>
-            <td>{{com.date}}</td>
-            <td><span *ngIf="com.commercial !=null" >{{com.commercial.nom}}</span></td>
-            <td><span *ngIf="com.prospect !=null">{{com.prospect.nom}}</span></td>
-            <td><span *ngIf="com.appel !=null">#{{com.appel.id}}</span></td>
-            <td><button (click)="modifierCommentaire(com)" >Modifier</button></td>
-            <td><button *ngIf="com.id !=undefined" (click)="supprimerCommentaire(com.id)" >Supprimer</button></td>
-        </tr>
-    </tbody>
-</table>
+<div class="jumbotron jumbotron-fluid teteAdmin">
+    <div class="container">
+        <h1 class="display-4">Gestion des commentaires</h1>
+        <p class="lead">Ici vous pouvez gérer les différents commentaires sur un appel ou sur un prospect</p>
+        <br>
+        <p> <b>ATTENTION : Vous ne pouvez pas affecter un commentaire à un appel <u>ET</u> à un prospect </b></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <table class="table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Texte</th>
+                    <th>Date</th>
+                    <th>Commercial</th>
+                    <th>Prospect</th>
+                    <th>Appel</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let com of listeCommentaire">
+                    <td>{{com.id}}</td>
+                    <td>{{com.texte}}</td>
+                    <td>{{com.date}}</td>
+                    <td><span *ngIf="com.commercial !=null">{{com.commercial.nom}}</span></td>
+                    <td><span *ngIf="com.prospect !=null">{{com.prospect.nom}}</span></td>
+                    <td><span *ngIf="com.appel !=null">#{{com.appel.id}}</span></td>
+                    <!-- <td> <button  *ngIf="com.appel in listeAppelUser" (click)="modifierCommentaire(com)" >Modifier</button></td> -->
+                    <td> <button class="btn btn-warning"  *ngIf="user.role.nom==='ADMIN' ||  (com.appel!=undefined && comAppelExiste(com.appel))"
+                            (click)="modifierCommentaire(com)">Modifier</button>
+                    </td>
+                    <td><button class="btn btn-danger" *ngIf="com.id !=undefined && user.role.nom==='ADMIN' "
+                          (click)="supprimerCommentaire(com.id)">Supprimer</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <h1>Enregistrer / Modifier un commentaire</h1>
 
-<h1>Enregistrer / Modifier un commentaire</h1>
+        <div class="formulaire-container">
 
-<form (ngSubmit)="enregistrerCommentaire()">
-    <table>
-        <tr>
-            <input type="hidden" name="id" [(ngModel)]="commentaire.id">
-            <td>
-                <label for="texte">Texte</label>
-                <input type="texte" name="texte" [(ngModel)]="commentaire.texte">
-            </td>
-            <td>
-                <label for="date">Date</label>
-                <input type="date" name="date" [(ngModel)]="commentaire.date">
-            </td>
-            <td>
-                <label for="commercial">Commercial</label>
-                <select id="commercial" *ngIf="commentaire.commercial!=undefined" [(ngModel)]="commentaire.commercial.id" name="commercial">
-                    <option *ngFor="let commercial of listeCommercial" [value]="commercial.id">{{ commercial.nom }}</option>
-                </select>
-            </td>
-            <td>
-                <label *ngIf="commentaire.prospect!=undefined" for="prospect">Prospect</label>
-                <select id="prospect" *ngIf="commentaire.prospect!=undefined"  [(ngModel)]="commentaire.prospect.id" name="Prospect">
-                    <option *ngFor="let prospect of listeProspect" [value]="prospect.id">{{ prospect.nom }}</option>
-                </select>
-            </td>
-            <td>
-                <label *ngIf="commentaire.appel!=undefined" for="appel">Appel</label>
-                <select id="appel" *ngIf="commentaire.appel!=undefined"  [(ngModel)]="commentaire.appel.id" name="Appel">
-                    <option *ngFor="let appel of listeAppel" [value]="appel.id">#{{ appel.id }}</option>
-                </select>
-            </td>
-            <tr>
-          
-            <td> <button type="submit">Enregistrer</button></td>
-        </tr>
-    </table>
+            <form (ngSubmit)="enregistrerCommentaire()" class="formulaire">
+                <table>
+                    <tr>
+                        <input type="hidden" name="id" [(ngModel)]="commentaire.id">
+                        <td>
+                            <div class="form-group">
 
-    <a href="menuAdmin"><<< Retour au menu administrateur</a>
+                                <label for="texte">Texte</label>
+                                <textarea  class="form-control" id="texte" name="texte" [(ngModel)]="commentaire.texte" rows="4"></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="date">Date</label>
+                                <input class="form-control" type="date" name="date" [(ngModel)]="commentaire.date">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="commercial">Commercial</label>
+                                <select class="form-control" id="commercial" *ngIf="commentaire.commercial!=undefined"
+                                    [(ngModel)]="commentaire.commercial.id" name="commercial">
+                                    <option *ngFor="let commercial of listeCommercial" [value]="commercial.id">{{
+                                        commercial.nom }}</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+
+                                <label *ngIf="commentaire.prospect!=undefined" for="prospect">Prospect</label>
+                                <select class="form-control" id="prospect" *ngIf="commentaire.prospect!=undefined"
+                                    [(ngModel)]="commentaire.prospect.id" name="Prospect">
+                                    <option *ngFor="let prospect of listeProspect" [value]="prospect.id">{{ prospect.nom
+                                        }}
+                                    </option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <div class="form-group">
+
+                                <label *ngIf="commentaire.appel!=undefined" for="appel">Appel</label>
+                                <select class="form-control" id="appel" *ngIf="commentaire.appel!=undefined"
+                                    [(ngModel)]="commentaire.appel.id" name="Appel">
+                                    <option *ngFor="let appel of listeAppel" [value]="appel.id">#{{ appel.id }}</option>
+                                </select>
+                            </div>
+                        </td>
+
+                        <div class="form-group">
+
+                            <td> <button class="btn btn-primary" type="submit">Enregistrer</button></td>
+                        </div>
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+    </div>
+</div>
+<a href="menuAdmin">
+    <<< Retour au menu administrateur</a>

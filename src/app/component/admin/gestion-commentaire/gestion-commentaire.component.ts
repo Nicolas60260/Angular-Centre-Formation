@@ -5,6 +5,7 @@ import { Appel } from 'src/app/models/appel';
 import { Commentaire } from 'src/app/models/commentaire';
 import { Commercial } from 'src/app/models/commercial';
 import { Prospect } from 'src/app/models/prospect';
+import { Utilisateur } from 'src/app/models/utilisateur';
 import { AppelService } from 'src/app/service/site/appel.service';
 import { CommentaireService } from 'src/app/service/site/commentaire.service';
 import { CommercialService } from 'src/app/service/site/commercial.service';
@@ -21,8 +22,10 @@ export class GestionCommentaireComponent implements OnInit {
   listeCommercial !: Commercial[];
   listeProspect !: Prospect[];
   listeAppel !: Appel[];
+  listeAppelUser !: Appel[];
   idcible!: number;
   formGroup: any;
+  user !:Utilisateur;
 
   constructor(private commentaireService: CommentaireService
     , private commercialService: CommercialService
@@ -32,8 +35,13 @@ export class GestionCommentaireComponent implements OnInit {
     ,private titleService: Title) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle("Gestion des commentaires")
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : undefined;
+    this.titleService.setTitle("Gestion des commentaires");
     this.idcible = this.ActRoute.snapshot.params["id"];
+    if (this.user.role.nom == 'COMMERCIAL') {
+      this.getAppeluser(this.user.id);
+    }
     this.afficherAll();
     this.afficherCommercial();
     this.afficherProspect();
@@ -72,7 +80,7 @@ export class GestionCommentaireComponent implements OnInit {
       this.commentaireService.getByProspectId(this.idcible).subscribe(
         response => {
           this.listeCommentaire = response
-            , this.attribuerAnnonce()
+            , this.attribuerAppel()
             , this.commentaire = new Commentaire()
             , this.commentaire.commercial = new Commercial()
             , this.commentaire.prospect = new Prospect()
@@ -84,7 +92,7 @@ export class GestionCommentaireComponent implements OnInit {
       this.commentaireService.getAll().subscribe(
         response => {
           this.listeCommentaire = response,
-            this.attribuerAnnonce(),
+            this.attribuerAppel(),
             console.log(this.listeCommentaire)
             , this.commentaire = new Commentaire()
             , this.commentaire.commercial = new Commercial()
@@ -97,7 +105,7 @@ export class GestionCommentaireComponent implements OnInit {
     }
   }
 
-  attribuerAnnonce() {
+  attribuerAppel() {
     this.listeCommentaire.forEach(commentaire => {
       if (commentaire.id != undefined) {
 
@@ -109,6 +117,26 @@ export class GestionCommentaireComponent implements OnInit {
         )
       }
     })
+  }
+
+  getAppeluser(id:number){
+    this.appelService.getAppelByCommercial(id).subscribe(
+      response=>{this.listeAppelUser=response, console.log(this.listeAppelUser)},
+      error=> {console.error("Impossible d'obtenir la liste des appels de l'utilisateur");
+      }
+    )
+  }
+  comAppelExiste(appel:Appel): boolean {
+      let valid = false;
+      for (let index = 0; index < this.listeAppelUser.length; index++) {
+      if (this.listeAppelUser[index].id == appel.id) {
+        valid = true;
+        break;
+      }
+        
+      }
+      return valid;
+    
   }
   afficherCommercial() {
     this.commercialService.getAllCommerciaux().subscribe(
