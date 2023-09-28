@@ -16,12 +16,7 @@ import { PaiementComponent } from './component/admin/paiement/paiement.component
 import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
 import { LoginComponent } from './component/login/login.component';
 import { AuthService } from './auth.service';
-
-
-
-
-
-
+import { HeaderComponent } from './component/site/header/header.component';
 
 
 
@@ -47,10 +42,6 @@ const routes: Routes = [
   {path:'pageCommercial',component:PageCommercialComponent, canActivate: [AuthService],data: {role:['ADMIN']}},
 
 ];
-
-
-
-
 
 
 @NgModule({
