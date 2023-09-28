@@ -5,6 +5,7 @@ import { Component,OnInit } from '@angular/core';
 import { Participant } from 'src/app/models/participant';
 import { ParticipantService } from 'src/app/service/site/participant.service';
 import { Title } from '@angular/platform-browser';
+import { Utilisateur } from 'src/app/models/utilisateur';
 
 @Component({
   selector: 'app-paiement',
@@ -18,6 +19,7 @@ export class PaiementComponent implements OnInit{
   ListeParticipants!:Participant[];
   ParticipantParIdPaiement!:Participant;
   erreurAjout!:boolean;
+  user!:Utilisateur
 
   constructor(private pservice:PaiementService,private paservice:ParticipantService,private titleService: Title){}
   ngOnInit(): void {
@@ -26,6 +28,9 @@ export class PaiementComponent implements OnInit{
     this.PaiementAAjouter=new Paiement();
     this.PaiementAAjouter.participant=new Participant();
     this.afficherParticipant();
+
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
    
   }
 

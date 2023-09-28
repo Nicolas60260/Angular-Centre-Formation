@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Formation } from 'src/app/models/formation';
 import { Paiement } from 'src/app/models/paiement';
 import { Participant } from 'src/app/models/participant';
+import { Utilisateur } from 'src/app/models/utilisateur';
 import { FormationService } from 'src/app/service/site/formation.service';
 
 import { ParticipantService } from 'src/app/service/site/participant.service';
@@ -25,6 +26,7 @@ export class GestionParticipantComponent implements OnInit{
   listeIdFormation!:number[];
   checkboxValue: boolean = false;
   PrixDueTotal:number=0;
+  user!:Utilisateur
 
   constructor(private pservice:ParticipantService,private fservice:FormationService
     ,private titleService: Title){}
@@ -37,6 +39,8 @@ export class GestionParticipantComponent implements OnInit{
     this.ListePaiement=[];
     this.afficherFormations();
     this.listeIdFormation = [];
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
    //this.ListeParticipant=[];
     // this.checkboxValue= false;
     

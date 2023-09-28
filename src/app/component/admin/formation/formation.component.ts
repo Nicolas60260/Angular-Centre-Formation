@@ -5,6 +5,8 @@ import { Utilisateur } from 'src/app/models/utilisateur';
 import { CoursService } from 'src/app/service/site/cours.service';
 import { FormationService } from 'src/app/service/site/formation.service';
 
+
+
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -21,6 +23,7 @@ export class FormationComponent implements OnInit{
   constructor(private fservice:FormationService, private cservice: CoursService){}
 
   ngOnInit(): void {
+
     this.afficherFormation()
     this.FormationAAjouter = new Formation();
     this.FormationAAjouter.cours = []
@@ -28,6 +31,7 @@ export class FormationComponent implements OnInit{
     this.ListeIdCours=[];
     let sessionUser = sessionStorage.getItem("user");
     this.user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
+
     }
 
     afficherFormation(){

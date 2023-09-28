@@ -1,52 +1,72 @@
 <title>Gestion des Paiements</title>
-<table>
-    <tr>
-        <td>id</td>
-        <td>date</td>
-        <td>mode</td>
-        <td>montant</td>
-        <td>Participant</td>
-        <td>Supprimer paiement</td>
-        <td>Modifier paiement</td>
-    </tr>
+
+<div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 mx-auto" >
+    <table class="table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>date</th>
+            <th>mode</th>
+            <th>montant</th>
+            <th>Participant</th>
+            <th *ngIf="user.role.nom===('ADMIN')">Supprimer paiement</th>
+            <th *ngIf="user.role.nom===('ADMIN') || user.role.nom===('COMMERCIAL')">Modifier paiement</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let p of ListePaiements" >
     
-    <tr *ngFor = "let p of ListePaiements" >
+                <td>{{p.id}}</td>
+                <td>{{p.date}}</td>
+                <td>{{p.mode}}</td>
+                <td>{{p.montant}}</td>
+                <td><p *ngIf="p.participant!=null">{{p.participant.nom}}</p></td>
+                <td *ngIf="user.role.nom===('ADMIN')"><button (click)="supprimerPaiement(p.id)">Supprimer ce paiement</button></td>
+                <td *ngIf="user.role.nom===('ADMIN') || user.role.nom===('COMMERCIAL')"><button (click)="modifierPaiement(p)">Modifier ce paiement</button></td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
 
-        <td>{{p.id}}</td>
-        <td>{{p.date}}</td>
-        <td>{{p.mode}}</td>
-        <td>{{p.montant}}</td>
-        <td><p *ngIf="p.participant!=null">{{p.participant.nom}}</p></td>
-        <td><button (click)="supprimerPaiement(p.id)">Supprimer ce paiement</button></td>
-        <td><button (click)="modifierPaiement(p)">Modifier ce paiement</button></td>
 
-
-    </tr>
-</table>
 <br>
-<h2>Ajouter/Modifier un paiement</h2>
-<form (ngSubmit)="checkpaiement(PaiementAAjouter)">
-    <!---->
-    id : <input type="number" name="id" [(ngModel)]="PaiementAAjouter.id" [hidden]="true">
-    date : <input type="date" name="mail" [(ngModel)]="PaiementAAjouter.date" required> 
-    mode de paiement: 
+<h2 class="container text-center" *ngIf="user.role.nom===('ADMIN') || user.role.nom===('COMMERCIAL')">Ajouter/Modifier un paiement</h2>
+
+
+
+  <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4 mx-auto" >
+    <form *ngIf="user.role.nom===('ADMIN') || user.role.nom===('COMMERCIAL')" (ngSubmit)="checkpaiement(PaiementAAjouter)">
+        <div class="form-group">
+        <label for="exampleInputEmail1">Date</label>
+        <input type="date" class="form-control"  aria-describedby="emailHelp" placeholder="Entrer la date du paiement" name ="PaiementAAjouter.date"[(ngModel)]="PaiementAAjouter.date" >
+        </div>
+
+        mode de paiement: 
     <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.mode" name="something" required>
         <option>carte bancaire</option>
         <option>chèque</option>
         <option>espèce</option>
       </select>
 
-      
-    montant : <input type="number" name="prenom" [(ngModel)]="PaiementAAjouter.montant" required>
-    participant :
-    <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.participant.id" name="something" required>
-        <option *ngFor = "let participant of ListeParticipants" [value]="participant.id"> {{participant.nom}} {{participant.prenom}} </option>
-      </select>
-    
-    <button type="submit">Ajouter Paiement</button>
-</form>
-<div *ngIf="erreurAjout==true">
-    <p style="color:red ;">Erreur de montant<br>
-        Veuillez entrer un montant.
-    </p>
-  </div>
+
+        <div class="form-group">
+        <label for="exampleInputPassword1">Montant</label>
+        <input type="number" class="form-control"  placeholder="Montant du paiement" name ="PaiementAAjouter.montant" [(ngModel)]="PaiementAAjouter.montant">
+        </div>
+
+        participant :
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="PaiementAAjouter.participant.id" name="something" required>
+            <option *ngFor = "let participant of ListeParticipants" [value]="participant.id"> {{participant.nom}} {{participant.prenom}} </option>
+        </select>
+
+
+        <button type="submit" class="btn btn-primary">Ajouter Paiement</button>
+    </form>
+
+</div>
+  
+  
+
+
+  
