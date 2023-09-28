@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Prospect } from 'src/app/models/prospect';
@@ -14,6 +14,8 @@ export class GestionProspectComponent implements OnInit {
   prospect !: Prospect;
   csvfile!: File;
   fileContent: string | undefined;
+  @ViewChild('myInput') focus: ElementRef | undefined; // Référence à l'élément que vous souhaitez mettre en surbrillance
+
 
   // constructor(private titleService: Title) {}
 
@@ -25,6 +27,7 @@ export class GestionProspectComponent implements OnInit {
     
       this.prospect = new Prospect()
   }
+
 
   onFileSelected(event: any) {
     this.csvfile = event.target.files[0];
@@ -107,6 +110,9 @@ export class GestionProspectComponent implements OnInit {
 
   modifierProsepct(prospect: Prospect) {
     this.prospect = prospect;
+    if (this.focus) {
+      this.focus.nativeElement.focus();
+    }
     this.afficherAll()
   }
 

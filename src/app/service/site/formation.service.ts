@@ -7,26 +7,28 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class FormationService {
 
-  constructor(private http:HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  afficherLesFormations(){
+  afficherLesFormations() {
 
     return this.http.get<Formation[]>("http://localhost:8018/formation/public/list");
 
   }
-  
-  afficherFormationParCours(id:number){
+
+  afficherFormationParCours(id: number) {
     return this.http.get<Formation[]>(`http://localhost:8018/formation/a/cours/${id}`)
   }
 
-  supprimerLesFormations(id:number){
+  supprimerLesFormations(id: number) {
     return this.http.delete<Formation>(`http://localhost:8018/formation/a/delete/${id}`);
   }
 
-  ajouterFormation(f:Formation){
-    return this.http.post<Formation>(`http://localhost:8018/formation/f/add`,f);
+  ajouterFormation(f: Formation) {
+    return this.http.post<Formation>(`http://localhost:8018/formation/f/add`, f);
   }
 
-
+  afficherFormationParFormateur(id: number) {
+    return this.http.get<Formation[]>(`http://localhost:8018/formation/f/formateur/${id}`)
+  }
 
 }

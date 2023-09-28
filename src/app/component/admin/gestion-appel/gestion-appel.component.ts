@@ -6,6 +6,7 @@ import { Appel } from 'src/app/models/appel';
 import { Commentaire } from 'src/app/models/commentaire';
 import { Commercial } from 'src/app/models/commercial';
 import { Prospect } from 'src/app/models/prospect';
+import { Utilisateur } from 'src/app/models/utilisateur';
 import { AppelService } from 'src/app/service/site/appel.service';
 import { CommercialService } from 'src/app/service/site/commercial.service';
 import { ProspectService } from 'src/app/service/site/prospect.service';
@@ -22,6 +23,7 @@ export class GestionAppelComponent implements OnInit {
   appel!: Appel;
   idcible!: number;
   heure!: string;
+  user !:Utilisateur;
 
 
   constructor(private appelService: AppelService
@@ -31,12 +33,17 @@ export class GestionAppelComponent implements OnInit {
     ,private titleService: Title) { }
 
   ngOnInit(): void {
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : undefined;
     this.titleService.setTitle("Gestion des appels")
     this.appel = new Appel();
     this.appel.debutAppel = new Date();
 
     this.idcible = this.ActRoute.snapshot.params["id"];
     this.afficherAll();
+    console.log(this.listeAppel);
+    
+    // this.attribuerCommercial();
     this.afficherCommercial();
     this.afficherProspect();
     this.heure = "";
@@ -69,23 +76,49 @@ export class GestionAppelComponent implements OnInit {
     if (this.idcible != undefined) {
       this.appelService.getByProspectId(this.idcible).subscribe(
         response => {
-          this.appel = new Appel()
+          console.log(this.listeAppel)
+          ,this.listeAppel = response
+          ,console.log(this.listeAppel)
+          ,this.appel = new Appel()
             , this.heure = ""
             , this.appel.commentaire = new Commentaire()
             , this.appel.commercial = new Commercial()
             , this.appel.prospect = new Prospect()
             , this.appel.debutAppel = new Date()
-            , this.listeAppel = response
+            
+            
+            
+            
         },
         error => { console.error("Impossible d'afficher les commentaires du prospect") }
       )
     } else {
       this.appelService.getall().subscribe(
-        response => { this.listeAppel = response },
+        response => {
+          this.listeAppel = response,
+          this.attribuerCommercial();
+        },
         error => (console.error("Impossible d'afficher la liste des appels"))
       )
     }
   }
+
+ 
+  attribuerCommercial(){
+    this.listeAppel.forEach(appel => {
+      
+      if (appel.id != undefined) {
+        
+        this.appelService.getCommercial(appel.id).subscribe(
+          response => { appel.commercial = response },
+          error => {
+            console.error("Impossible d'attribuer les annonces");
+          }
+        )
+      }
+    })
+  }
+
   afficherCommercial() {
     this.commercialService.getAllCommerciaux().subscribe(
       response => {
@@ -110,6 +143,10 @@ export class GestionAppelComponent implements OnInit {
 
   enregistrerAppel() {
     console.log(this.heure)
+    if (this.user.role.nom === 'COMMERCIAL') {
+      // Si l'utilisateur connecté est un commercial, attribuez son ID
+      this.appel.commercial.id = this.user.id; 
+    }
     if (typeof this.appel.debutAppel === 'string') {
       // Convertir la chaîne en un objet Date
       console.log(this.appel.debutAppel);

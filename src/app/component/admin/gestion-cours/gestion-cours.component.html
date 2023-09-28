@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <a href="menuAdmin"><<< Retour au menu administrateur</a>
 
 <table>
@@ -23,21 +24,81 @@
         </tr>
     </tbody>
 </table>
+=======
+<div class="jumbotron jumbotron-fluid teteAdmin">
+    <div class="container">
+        <h1 class="display-4">Gestion des cours</h1>
+        <p class="lead">Ici vous pouvez gérer les différents cours</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-8">
+        <table class="table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Intitulé du cours</th>
+                    <th>Durée du cours</th>
+                    <th>Fichier du Cours</th>
+                    <th>Formations affilées</th>
+                    <th>Modifier</th>
+                    <th *ngIf="user.role.nom==='ADMIN'">Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of listeCours">
+                    <td>{{c.id}}</td>
+                    <td>{{c.nom}}</td>
+                    <td>{{c.duree}}</td>
+                    <td><a [href]="c.urlfichier">{{c.fichier}}</a></td>
+                    <td><span *ngFor="let f of c.formations">{{f.id}},</span></td>
+                    <td><button class="btn btn-warning"  (click)="modifierCours(c)">Modifier</button></td>
+                    <td><button class="btn btn-danger" *ngIf="user.role.nom==='ADMIN'" (click)="supprimerCours(c.id)">Supprimer</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+>>>>>>> master
 
-<h1>Enregistrer / Modifier un cours</h1>
-<form (ngSubmit)="enregistrerCours()" enctype="multipart/form-data">
-    <input type="hidden" name="id" [(ngModel)]="cours.id">
-        <td>
-            <label for="nom">Nom</label>
-            <input type="text" name="nom" [(ngModel)]="cours.nom">
-        </td>
-        <td>
-            <label for="duree">Duree</label>
-            <input type="number" name="duree" [(ngModel)]="cours.duree">
-        </td>
-        <td>
-            <label for="fichier">Fichier de cours</label>
-            <input type="file" name="fichier" (change)="onFileSelected($event)">
-        </td>
-        <td> <button type="submit">Enregistrer</button></td>
-</form>
+
+    <div class="col-4">
+        <h1>Enregistrer / Modifier un cours</h1>
+
+        <div class="formulaire-container">
+            <form (ngSubmit)="enregistrerCours()" enctype="multipart/form-data" class="formulaire">
+                <table>
+                    <tr>
+                        <input type="hidden" name="id" [(ngModel)]="cours.id">
+                        <td>
+                            <div class="form-group">
+
+                                <label for="nom">Nom</label>
+                                <input class="form-control" type="text" name="nom" [(ngModel)]="cours.nom">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="duree">Duree</label>
+                                <input class="form-control" type="number" name="duree" [(ngModel)]="cours.duree">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="fichier">Fichier de cours</label>
+                                <input class="form-control" type="file" name="fichier"
+                                    (change)="onFileSelected($event)">
+                            </div>
+                        </td>
+                        <td> <button class="btn btn-primary" type="submit">Enregistrer</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<a href="menuAdmin">
+    <<< Retour au menu administrateur</a>
