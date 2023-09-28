@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {// méthode provenant de OnInit à redéfinir
     this.titleService.setTitle("Page de connection")
     sessionStorage.removeItem("token");
-    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("user");
     this.EnregistrementUser = new Utilisateur();
 
   }

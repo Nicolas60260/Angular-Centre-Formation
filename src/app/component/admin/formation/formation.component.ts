@@ -9,6 +9,8 @@ import { CoursService } from 'src/app/service/site/cours.service';
 import { FormateurService } from 'src/app/service/site/formateur.service';
 import { FormationService } from 'src/app/service/site/formation.service';
 
+
+
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -34,6 +36,21 @@ export class FormationComponent implements OnInit {
 
 
   ngOnInit(): void {
+<<<<<<< HEAD
+
+    this.afficherFormation()
+    this.FormationAAjouter = new Formation();
+    this.FormationAAjouter.cours = []
+    this.afficherCours();
+    this.ListeIdCours=[];
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
+
+    }
+
+    afficherFormation(){
+      
+=======
     let sessionUser = sessionStorage.getItem("user");
     this.user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
     this.titleService.setTitle("Gestion des formations")
@@ -47,6 +64,7 @@ export class FormationComponent implements OnInit {
     this.afficherCours();
     this.ListeIdCours = [];
   }
+>>>>>>> master
 
   afficherFormation() {
     if (this.idcible != undefined) {
