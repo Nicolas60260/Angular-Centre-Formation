@@ -1,4 +1,5 @@
 import { Cours } from "./cours";
+import { Formateur } from "./formateur";
 
 export class Formation {
     id!:number;
@@ -9,11 +10,12 @@ export class Formation {
     username!:string;
     password!:string;
     cours!:Cours[];
+    formateur!: Formateur;
 
 
 
 
-    constructor(id?:number,nom?:string,dateDebut?:Date,dateFin?:Date,prix?:number,username?:string,password?:string,cours?:Cours[])
+    constructor(id?:number,nom?:string,dateDebut?:Date,dateFin?:Date,prix?:number,username?:string,password?:string,cours?:Cours[],formateur?:Formateur)
     {
         
         if(id)
@@ -32,6 +34,8 @@ export class Formation {
         this.password = password;
         if(cours)
         this.cours = cours;
+        if(formateur)
+        this.formateur = formateur;
 
     }
 

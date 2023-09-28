@@ -1,88 +1,142 @@
+<div class="jumbotron jumbotron-fluid teteAdmin">
+    <div class="container">
+        <h1 class="display-4">Gestion des appels</h1>
+        <p class="lead">Ici vous pouvez gérer les différents appels entre les commerciaux et le prospect</p>
+    </div>
+</div>
+<div class="row">
 
-    <!-- <title>Page appel admin</title> -->
-    <title>Accueil - Mon Application</title>
+    <div class="col-6">
 
-<table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Date</th>
-            <th>Durée</th>
-            <th>RDV ?</th>
-            <th>Commercial</th>
-            <th>Prospect</th>
-            <th>Commentaire</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let a of listeAppel">
-            <td>{{a.id}}</td>
-            <td>{{a.debutAppel | date:'dd/MM/yyyy HH:mm'}}</td>
-            <td>{{a.duree}}</td>
-            <td><span *ngIf="a.rdv ==true; else isNotRDV ">Oui</span></td>
-            <ng-template #isNotRDV>Non</ng-template>
-            <td><span *ngIf="a.commercial !=null">{{a.commercial.nom}}</span></td>
-            <td><span *ngIf="a.prospect !=null">{{a.prospect.nom}}</span></td>
-            <td><span *ngIf="a.commentaire !=null">{{a.commentaire.texte}}</span></td>
-            <td><button (click)="modifierAppel(a)">Modifier</button></td>
-            <td><button   (click)="supprimerAppel(a.id)">Supprimer</button></td>
-        </tr>
-    </tbody>
-</table>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Durée</th>
+                    <th>RDV ?</th>
+                    <th>Commercial</th>
+                    <th>Prospect</th>
+                    <th>Commentaire</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of listeAppel">
+                    <td>{{a.id}}</td>
+                    <td>{{a.debutAppel | date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{a.duree}}</td>
+                    <td><span *ngIf="a.rdv ==true; else isNotRDV ">Oui</span></td>
+                    <ng-template #isNotRDV>Non</ng-template>
+                    <td><span *ngIf="a.commercial !=null">{{a.commercial.nom}}</span></td>
+                    <td><span *ngIf="a.prospect !=null">{{a.prospect.nom}}</span></td>
+                    <td><span *ngIf="a.commentaire !=null">{{a.commentaire.texte}}</span></td>
+                    <td><button class="btn btn-warning" 
+                            *ngIf=" user.role.nom==='ADMIN' || (user.role.nom==='COMMERCIAL' && a.commercial.id == user.id)"
+                            (click)="modifierAppel(a)">Modifier</button></td>
+                    <td><span *ngIf="user.role.nom==='ADMIN'"><button class="btn btn-danger"
+                                (click)="supprimerAppel(a.id)">Supprimer</button></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+
+
+        <h1>Ajouter / Modifier un appel</h1>
+        <div class="formulaire-container">
+            <form (ngSubmit)="enregistrerAppel()" class="formulaire">
+                <table>
+                    <tr>
+                        <input type="hidden" name="id" [(ngModel)]="appel.id">
+                        <td>
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input class="form-control" type="date" name="date" [ngModel]="appel.debutAppel | date: 'yyyy-MM-dd'"
+                                    [(ngModel)]="appel.debutAppel ">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="heure">Heure</label>
+                                <input class="form-control" type="time" name="heure" [(ngModel)]="heure">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <div class="form-group">
+
+                                <label for="duree">Duree</label>
+                                <input class="form-control" width="20px" type="number" name="duree" [(ngModel)]="appel.duree">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="commercial">Commercial</label>
+                                <span *ngIf="user.role.nom==='COMMERCIAL'; else isAdmin">
+                                    <input class="form-control" type="text" name="commercial" [value]="user.nom" readonly>
+                                </span>
+                                <ng-template #isAdmin>
+
+                                    <select class="form-control" id="commercial" [(ngModel)]="appel.commercial.id" name="commercial">
+                                        <option *ngFor="let commercial of listeCommercial" [value]="commercial.id">{{
+                                            commercial.nom
+                                            }}
+                                        </option>
+                                    </select>
+                                </ng-template>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="prospect">Prospect</label>
+                                <select class="form-control" id="prospect" [(ngModel)]="appel.prospect.id" name="Prospect">
+                                    <option *ngFor="let prospect of listeProspect" [value]="prospect.id">{{ prospect.nom
+                                        }}
+                                    </option>
+                                </select>
+                            </div>
+                        </td>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+
+                                <label class="form-control" for="commentaire">Commentaire</label>
+                                <textarea id="commentaire" name="commentaire" [(ngModel)]="appel.commentaire.texte"
+                                    rows="4"></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+
+                                <label class="form-control" for="RDV">Est-ce un RDV ?</label>
+                                <label>
+                                    <input class="form-control" type="radio" name="RDV" [(ngModel)]="appel.rdv" value="true">
+                                    Oui
+                                </label>
+
+                                <label>
+                                    <input class="form-control" type="radio" name="RDV" [(ngModel)]="appel.rdv" value="false">
+                                    Non
+                                </label>
+                            </div>
+                        </td>
+
+                        <td> <button class="btn btn-primary" type="submit">Enregistrer</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
 <br>
-<br>
-<h1>Ajouter / Modifier un appel</h1>
-<form (ngSubmit)="enregistrerAppel()">
-    <table>
-        <tr>
-            <input type="hidden" name="id" [(ngModel)]="appel.id">
-            <td>
-                <label for="date">Date</label>
-                <input type="date" name="date" [ngModel]="appel.debutAppel | date: 'yyyy-MM-dd'" [(ngModel)]="appel.debutAppel ">
-            </td>
-            <td>
-                <label for="heure">Heure</label>
-                <input type="time" name="heure" [(ngModel)]="heure" >
-            </td>
-            <td>
-                <label for="duree">Duree</label>
-                <input type="number" name="duree" [(ngModel)]="appel.duree">
-            </td>
-            <td>
-                <label for="commercial">Commercial</label>
-                <select id="commercial" [(ngModel)]="appel.commercial.id" name="commercial">
-                    <option *ngFor="let commercial of listeCommercial" [value]="commercial.id">{{ commercial.nom }}
-                    </option>
-                </select>
-            </td>
-            <td>
-                <label for="prospect">Prospect</label>
-                <select id="prospect" [(ngModel)]="appel.prospect.id" name="Prospect">
-                    <option *ngFor="let prospect of listeProspect" [value]="prospect.id">{{ prospect.nom }}</option>
-                </select>
-            </td>
-        <tr>
-            <td>
-                <label for="commentaire">Commentaire</label>
-                <textarea id="commentaire" name="commentaire" [(ngModel)]="appel.commentaire.texte" rows="4"></textarea>
-            </td>
-            <td>
-                <label for="RDV">Est-ce un RDV ?</label>
-                <label>
-                    <input type="radio" name="RDV" [(ngModel)]="appel.rdv" value="true">
-                    Oui
-                </label>
-
-                <label>
-                    <input type="radio" name="RDV" [(ngModel)]="appel.rdv" value="false">
-                    Non
-                </label>
-            </td>
-
-            <td> <button type="submit">Enregistrer</button></td>
-        </tr>
-    </table>
-<br>
-<a href="menuAdmin"><<< Retour au menu administrateur</a>
+<a href="menuAdmin">
+    <<< Retour au menu administrateur</a>

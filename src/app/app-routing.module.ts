@@ -30,7 +30,7 @@ const routes: Routes = [
   // Section d'URLs admins
 
   {path:'login',component:LoginComponent},
-  {path:'menuAdmin',component:MenuAdminComponent, canActivate: [AuthService],data: {role:['ADMIN','PARTICIPANT','FORMATEUR','COMMERCIAL']}},
+  {path:'menuAdmin',component:MenuAdminComponent, canActivate: [AuthService]},
   {path:'adminCommercial', component:GestionCommercialComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
   {path:'adminUtilisateur', component:GestionUtilisateurComponent, canActivate: [AuthService],data: {role:['ADMIN']}},
   {path:'adminFormateur',component:GestionFormateurComponent, canActivate: [AuthService],data: {role:['ADMIN','FORMATEUR']}},
@@ -39,6 +39,7 @@ const routes: Routes = [
   {path:'adminAppel',component:GestionAppelComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
   {path:'adminCommentaire/:id',component:GestionCommentaireComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
   {path:'adminCommentaire',component:GestionCommentaireComponent, canActivate: [AuthService],data: {role:['ADMIN','COMMERCIAL']}},
+  {path:'adminFormation/:id',component:FormationComponent, canActivate: [AuthService],data: {role:['ADMIN','FORMATEUR']}},
   {path:'adminFormation',component:FormationComponent, canActivate: [AuthService],data: {role:['ADMIN','FORMATEUR']}},
   {path:'adminParticipant',component:GestionParticipantComponent, canActivate: [AuthService],data: {role:['ADMIN','PARTICIPANT','FORMATEUR']}},
   {path:'adminPaiement',component:PaiementComponent, canActivate: [AuthService],data: {role:['ADMIN','PARTICIPANT','COMMERCIAL']}},

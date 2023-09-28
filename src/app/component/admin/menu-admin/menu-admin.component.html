@@ -1,28 +1,43 @@
 <h1>Page Administrateur</h1>
 
-<a href="adminUtilisateur">Menu utilisateurs</a>
-<br>
-<div *ngIf="user.role.nom === 'ADMIN'|| user.role.nom === 'COMMERCIAL'">
-<a href="adminCommercial">Menu commerciaux</a>
-<br>
+<div *ngIf="user.role.nom===('ADMIN')">
+    <a href="adminUtilisateur">Menu utilisateurs</a>
+    <br>
 </div>
-<a href="adminProspect">Menu Prospect</a>
-<br>
-<a href="adminAppel">Menu Appel</a>
-<br>
-
-<a href="adminCommentaire">Menu commentaires</a>
-<br>
-
-<a href="adminFormateur">Menu formateurs</a>
-<br>
-<a href="adminCours">Menu Cours</a>
-<br>
-
-<a href="adminParticipant">Menu participant</a>
-<br>
-<a href="adminPaiement">Menu paiement</a>
-<br>
-<a href="adminFormation">Menu formation</a>
-<br>
+<div *ngIf="user.role.nom==='COMMERCIAL' || user.role.nom==='ADMIN'">
+    <a  href="adminCommercial">Menu commerciaux</a>
+    <br>
+</div>
+<div *ngIf="user.role.nom==='COMMERCIAL'|| user.role.nom==='ADMIN'">
+    <a href="adminProspect">Menu Prospect</a>
+    <br>
+</div >
+<div *ngIf="user.role.nom ==='COMMERCIAL'|| user.role.nom==='ADMIN'">
+    <a href="adminAppel">Menu Appel</a>
+    <br>
+</div>
+<div *ngIf="user.role.nom ==='COMMERCIAL'|| user.role.nom==='ADMIN'">
+    <a href="adminCommentaire">Menu commentaires</a>
+    <br>
+</div>
+<div *ngIf="user.role.nom ==='FORMATEUR'|| user.role.nom==='ADMIN'">
+    <a href="adminFormateur">Menu formateurs</a>
+    <br>
+</div>
+<div *ngIf="user.role.nom ==='PARTICIPANT'|| user.role.nom=== 'FORMATEUR'|| user.role.nom=== 'ADMIN'">
+    <a href="adminCours">Menu Cours</a>
+    <br>
+</div>
+<div *ngIf="user.role.nom ==='PARTICIPANT'|| user.role.nom==='FORMATEUR'|| user.role.nom==='ADMIN'">
+    <a href="adminParticipant">Menu participant</a>
+    <br>
+</div>
+<div *ngIf="user.role.nom ==='PARTICIPANT'|| user.role.nom==='COMMERCIAL'|| user.role.nom==='ADMIN'">
+    <a href="adminPaiement">Menu paiement</a>
+    <br>
+</div>
+<div *ngIf="user.role.nom ==='FORMATEUR'|| user.role.nom==='ADMIN'">
+    <a href="adminFormation">Menu formation</a>
+    <br>
+</div>
 

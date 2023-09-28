@@ -10,7 +10,7 @@ export class Appel {
     duree!: number;
     rdv!: boolean;
     commentaire!: Commentaire;
-    commercial!: Commercial;
+    commercial: Commercial = new Commercial();
     prospect!: Prospect;
 
     constructor(id?: number,
