@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Cours } from 'src/app/models/cours';
 import { Formation } from 'src/app/models/formation';
+import { Utilisateur } from 'src/app/models/utilisateur';
 import { CoursService } from 'src/app/service/site/cours.service';
 import { FormationService } from 'src/app/service/site/formation.service';
 
@@ -14,10 +15,13 @@ export class GestionCoursComponent implements OnInit {
 listeCours!:Cours[];
 cours!:Cours;
 selectedFile!: File | undefined;
+user !: Utilisateur;
 
 constructor(private coursService:CoursService,private fService:FormationService,private titleService: Title){}
 
   ngOnInit(): void {
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : undefined;
   this.afficherAll();
   this.cours=new Cours();
   this.titleService.setTitle("Gestion des cours")
@@ -32,6 +36,7 @@ constructor(private coursService:CoursService,private fService:FormationService,
       response=>{this.listeCours=response,
       this.listeCours.forEach(cours => {
         cours.urlfichier = "http://localhost:8018/dossiercours/" + cours.fichier;
+        console.log(cours.urlfichier)
         this.fService.afficherFormationParCours(cours.id).subscribe(
           response => {cours.formations = response},
           error=>{console.error("impossible d'attribuer les cours");

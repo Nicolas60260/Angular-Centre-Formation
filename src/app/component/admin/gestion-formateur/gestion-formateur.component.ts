@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import {  Router } from '@angular/router';
 import { Formateur } from 'src/app/models/formateur';
+import { Utilisateur } from 'src/app/models/utilisateur';
 import { FormateurService } from 'src/app/service/site/formateur.service';
 import { ProspectService } from 'src/app/service/site/prospect.service';
 
@@ -12,10 +14,16 @@ import { ProspectService } from 'src/app/service/site/prospect.service';
 export class GestionFormateurComponent implements OnInit{
   formateur!:Formateur;
   listeFormateur!:Formateur[];
+  user !: Utilisateur;
 
-  constructor(private formateurService:FormateurService, private prospectService: ProspectService,private titleService: Title){}
+  constructor(private formateurService:FormateurService
+    , private prospectService: ProspectService
+    ,private titleService: Title
+    ,private route: Router){}
 
   ngOnInit(): void {
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : undefined;
     this.titleService.setTitle("Gestion des formateurs")
     this.afficherAll();
     this.formateur = new Formateur();
@@ -50,8 +58,8 @@ supprimerFormateur(id:number){
     this.afficherAll();
   }
 
-  // afficherFormation(id:number){
-  //   this.route.navigateByUrl(`adminFormation/${id}`)
-  // }
+  afficherFormations(id:number){
+    this.route.navigateByUrl(`adminFormation/${id}`)
+  }
 
 }

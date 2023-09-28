@@ -1,70 +1,96 @@
-<table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Mail</th>
-            <th>Telephone</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Formations</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let f of listeFormateur">
-            <td>{{f.id}}</td>
-            <td>{{f.nom}}</td>
-            <td>{{f.prenom}}</td>
-            <td>{{f.mail}}</td>
-            <td>{{f.telephone}}</td>
-            <td>{{f.username}}</td>
-            <td>{{f.password}}</td>
-            <td><button>Afficher les formations</button></td>
-            <!-- <td><button (click)="afficherFormations(p.id)"  >Afficher les formations</button></td> -->
-            <td><button (click)="modifierFormateur(f)">Modifier</button></td>
-            <td><button (click)="supprimerFormateur(f.id)">Supprimer</button></td>
-        </tr>
-    </tbody>
-</table>
+<div class="jumbotron jumbotron-fluid teteAdmin">
+    <div class="container">
+        <h1 class="display-4">Gestion des formateurs</h1>
+        <p class="lead">Ici vous pouvez gérer les différents formateurs</p>
+    </div>
+</div>
 
-<h1>Ajouter / Modifier un formateur</h1>
-<form (ngSubmit)="enregistrerFormateur()">
-<table>
-    <tr>
-        <input type="hidden" name="id" [(ngModel)]="formateur.id" [hidden]="true">
-        <td>
-            <label for="nom">Nom</label>
-            <input type="text" name="nom" [(ngModel)]="formateur.nom">
-        </td>
-        <td>
-            <label for="prenom">Prenom</label>
-            <input type="text" name="prenom" [(ngModel)]="formateur.prenom">
-        </td>
-        <td>
-            <label for="mail">Mail</label>
-            <input type="text" name="mail" [(ngModel)]="formateur.mail">
-        </td>
-        <td>
-            <label for="telephone">Telephone</label>
-            <input type="text" name="telephone" [(ngModel)]="formateur.telephone">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label for="username">Username</label>
-            <input type="text" name="username" [(ngModel)]="formateur.username">
-        </td>
-        <td>
-            <label for="password">Password</label>
-            <input type="text" name="password" [(ngModel)]="formateur.password">
-        </td>
+<div class="row">
+    <div class="col-8">
+        <table class="table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Mail</th>
+                    <th>Telephone</th>
+                    <th *ngIf="user.role.nom == 'ADMIN'">Username</th>
+                    <th>Formations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let f of listeFormateur">
+                    <td>{{f.id}}</td>
+                    <td>{{f.nom}}</td>
+                    <td>{{f.prenom}}</td>
+                    <td>{{f.mail}}</td>
+                    <td>{{f.telephone}}</td>
+                    <td *ngIf="user.role.nom == 'ADMIN'">{{f.username}}</td>
+                    <!-- <td><button>Afficher les formations</button></td> -->
+                    <td><button class="btn btn-primary" (click)="afficherFormations(f.id)">Afficher les formations</button></td>
+                    <td><button class="btn btn-warning"  *ngIf="user.role.nom == 'ADMIN' || f.id == user.id"
+                            (click)="modifierFormateur(f)">Modifier</button></td>
+                    <td><button class="btn btn-danger" *ngIf="user.role.nom == 'ADMIN'" (click)="supprimerFormateur(f.id)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4">
+        <h1>Ajouter / Modifier un formateur</h1>
+        <div class="formulaire-container">
+            <form (ngSubmit)="enregistrerFormateur()">
+                <table>
+                    <tr>
+                        <input type="hidden" name="id" [(ngModel)]="formateur.id" [hidden]="true">
+                        <td>
+                            <div class="form-group">
 
-        <td> <button type="submit">Enregistrer</button></td>
-    </tr>
-</table>
+                                <label for="nom">Nom</label>
+                                <input class="form-control" type="text" name="nom" [(ngModel)]="formateur.nom">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
 
-</form>
+                                <label for="prenom">Prenom</label>
+                                <input class="form-control" type="text" name="prenom" [(ngModel)]="formateur.prenom">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="mail">Mail</label>
+                                <input class="form-control" type="text" name="mail" [(ngModel)]="formateur.mail">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+
+                                <label for="telephone">Telephone</label>
+                                <input class="form-control" type="text" name="telephone" [(ngModel)]="formateur.telephone">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><div class="form-group">
+
+                            <label for="username">Username</label>
+                            <input  class="form-control" type="text" name="username" [(ngModel)]="formateur.username">
+                        </div>
+                        </td>
+
+                        <td> <button type="submit">Enregistrer</button></td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+    </div>
+</div>
 <br>
-<a href="menuAdmin"><<< Retour au menu administrateur</a>
+<a href="menuAdmin">
+    <<< Retour au menu administrateur</a>
