@@ -18,7 +18,7 @@ export class AuthService implements CanActivate {
     if (sessionStorage.getItem('username') != null) {
       valid=true;
       let sessionUser = sessionStorage.getItem("user");
-      const user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
+      const user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur(); // si la session n'est pas nulle faire JSON.parse(sessionUser) sinon faire new Utilisateur()
       let role: Role = user.role;
       console.log(role)
       console.log(user);

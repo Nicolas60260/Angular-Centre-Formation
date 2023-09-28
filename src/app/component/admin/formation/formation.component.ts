@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Cours } from 'src/app/models/cours';
 import { Formateur } from 'src/app/models/formateur';
 import { Formation } from 'src/app/models/formation';
+import { Utilisateur } from 'src/app/models/utilisateur';
 import { CoursService } from 'src/app/service/site/cours.service';
 import { FormateurService } from 'src/app/service/site/formateur.service';
 import { FormationService } from 'src/app/service/site/formation.service';
@@ -20,6 +21,7 @@ export class FormationComponent implements OnInit {
   ListeCours!: Cours[]
   ListeIdCours!: number[];
   ListeFormateur !: Formateur[];
+  user!:Utilisateur
 
   constructor(private fservice: FormationService
     ,private formateurService: FormateurService
@@ -27,7 +29,13 @@ export class FormationComponent implements OnInit {
     , private ActRoute: ActivatedRoute
     , private titleService: Title) { }
 
+
+
+
+
   ngOnInit(): void {
+    let sessionUser = sessionStorage.getItem("user");
+    this.user = sessionUser !== null ? JSON.parse(sessionUser) : new Utilisateur();
     this.titleService.setTitle("Gestion des formations")
     this.afficherFormation();
     this.afficherFormateur();
@@ -35,6 +43,7 @@ export class FormationComponent implements OnInit {
     this.FormationAAjouter = new Formation();
     this.FormationAAjouter.cours = [];
     this.FormationAAjouter.formateur = new Formateur();
+    
     this.afficherCours();
     this.ListeIdCours = [];
   }
