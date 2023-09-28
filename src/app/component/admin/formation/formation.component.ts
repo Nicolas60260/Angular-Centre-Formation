@@ -9,8 +9,6 @@ import { CoursService } from 'src/app/service/site/cours.service';
 import { FormateurService } from 'src/app/service/site/formateur.service';
 import { FormationService } from 'src/app/service/site/formation.service';
 
-
-
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
