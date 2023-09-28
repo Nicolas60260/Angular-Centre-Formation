@@ -19,6 +19,7 @@ import { GestionFormateurComponent } from './component/admin/gestion-formateur/g
 import { GestionCoursComponent } from './component/admin/gestion-cours/gestion-cours.component';
 import { PageCoursComponent } from './component/site/page-cours/page-cours.component';
 import { PageCommercialComponent } from './component/site/page-commercial/page-commercial.component';
+import { HeaderComponent } from './component/site/header/header.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { PageCommercialComponent } from './component/site/page-commercial/page-c
     GestionFormateurComponent,
     GestionCoursComponent,
     PageCoursComponent,
-    PageCommercialComponent
+    PageCommercialComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

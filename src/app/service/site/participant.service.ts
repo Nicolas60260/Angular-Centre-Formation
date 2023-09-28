@@ -11,7 +11,7 @@ export class ParticipantService {
 
   afficherParticipant(){
 
-    return this.http.get<Participant[]>("http://localhost:8018/participant/cf/list");
+    return this.http.get<Participant[]>("http://localhost:8018/participant/pcf/list");
   }
   ajouterParticipant(p:Participant){
 
@@ -23,11 +23,11 @@ export class ParticipantService {
   }
 
   ParticipantParId(id:number){
-    return this.http.get<Participant>(`http://localhost:8018/participant/p/c/f/${id}`);
+    return this.http.get<Participant>(`http://localhost:8018/participant/pcf/${id}`);
   }
 
   afficherParticipantParIdPaiement(idPaiement:number){
-    return this.http.get<Participant>(`http://localhost:8018/participant/cf/trouverParticipantsParIdPaiement/${idPaiement}`);
+    return this.http.get<Participant>(`http://localhost:8018/participant/pcf/trouverParticipantsParIdPaiement/${idPaiement}`);
   }
 
   

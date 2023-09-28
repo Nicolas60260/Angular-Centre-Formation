@@ -1,3 +1,30 @@
+<<<<<<< HEAD
+<a href="menuAdmin"><<< Retour au menu administrateur</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Intitulé du cours</th>
+            <th>Durée du cours</th>
+            <th>Fichier du Cours</th>
+            <th>Formations affilées</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of listeCours">
+            <td>{{c.id}}</td>
+            <td>{{c.nom}}</td>
+            <td>{{c.duree}}</td>
+            <td><a [href]="c.urlfichier">{{c.fichier}}</a></td>
+            <td><span *ngFor="let f of c.formations">{{f.id}},</span></td>
+            <td><button (click)="modifierCours(c)">Modifier</button></td>
+            <td><button (click)="supprimerCours(c.id)">Supprimer</button></td>
+        </tr>
+    </tbody>
+</table>
+=======
 <div class="jumbotron jumbotron-fluid teteAdmin">
     <div class="container">
         <h1 class="display-4">Gestion des cours</h1>
@@ -31,6 +58,7 @@
             </tbody>
         </table>
     </div>
+>>>>>>> master
 
 
     <div class="col-4">

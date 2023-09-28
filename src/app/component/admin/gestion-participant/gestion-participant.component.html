@@ -1,5 +1,5 @@
 <title>Gestion Participants</title>
-<table>
+<!-- <table>
     <tr>
 
         <td>mail</td>
@@ -9,9 +9,9 @@
         <td>username</td>
         <td>Somme Due totale</td>
         <td>Formations suivies</td>
-        <td>Supprimer ce participant</td>
-        <td>Modifier ce participant</td>
-        <td>Afficher Paiements</td>
+        <td *ngIf="user.role.nom===('ADMIN')">Supprimer ce participant</td>
+        <td *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')">Modifier ce participant</td>
+        <td *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')">Afficher Paiements</td>
         <td> Afficher ce que ce participant doit encore payer</td>
         <td> Enlever participants des formations</td>
 
@@ -30,25 +30,76 @@
                 <td>{{f.nom}}</td>
             </tr>
         </td>
-        <td><button (click)="supprimerParticipant(p.id)">Supprimer ce Participant</button></td>
-        <td><button (click)="modifierParticipant(p)">Modifier ce Participant</button></td>
-        <td><button (click)="paiementsParticipant(p)">Consulter Paiements de ce participant</button></td>
+        <td *ngIf="user.role.nom===('ADMIN')"><button (click)="supprimerParticipant(p.id)">Supprimer ce Participant</button></td>
+        <td *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')"><button (click)="modifierParticipant(p)">Modifier ce Participant</button></td>
+        <td *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')"><button (click)="paiementsParticipant(p)">Consulter Paiements de ce participant</button></td>
         <td><button (click)="restantAPayerParticipant(p)">Consulter ce que ce participant doit encore payer</button></td>
         <td><button (click)="EnleverParticipantFormations(p)">Enlever ce participant des formations</button></td>
 
-    </tr>
-</table>
-<br>
-<h2>Ajouter/Modifier un participant</h2>
+   
 
-<form  #form="ngForm" (ngSubmit)="ajouterParticipant(form)">
+
+    </tr>
+</table>  -->
+
+<div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 mx-auto" >
+    <table class="table">
+        <thead>
+          <tr>
+            <th>mail</th>
+            <th>nom</th>
+            <th>prenom</th>
+            <th>telephone</th>
+            <th>username</th>
+            <th>Somme Due totale</th>
+            <th>Formations suivies</th>
+            <th *ngIf="user.role.nom===('ADMIN')">Supprimer ce participant</th>
+            <th *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')">Modifier ce participant</th>
+            <th *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')">Afficher Paiements</th>
+            <th> Afficher ce que ce participant doit encore payer</th>
+            <th> Enlever participants des formations</th>
+        </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor = "let p of ListeParticipant" >
+
+                <td>{{p.mail}}</td>
+                <td>{{p.nom}}</td>
+                <td>{{p.prenom}}</td>
+                <td>{{p.telephone}}</td>
+                <td>{{p.username}}</td>
+                <td>{{p.sommeDue}}</td>
+                <td>
+                    <tr *ngFor = "let f of p.formations" >
+                        <td>{{f.nom}}</td>
+                    </tr>
+                </td>
+                <td *ngIf="user.role.nom===('ADMIN')"><button (click)="supprimerParticipant(p.id)">Supprimer ce Participant</button></td>
+                <td *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')"><button (click)="modifierParticipant(p)">Modifier ce Participant</button></td>
+                <td *ngIf="user.role.nom===('ADMIN') || user.role.nom===('FORMATEUR')"><button (click)="paiementsParticipant(p)">Consulter Paiements de ce participant</button></td>
+                <td><button (click)="restantAPayerParticipant(p)">Consulter ce que ce participant doit encore payer</button></td>
+                <td><button (click)="EnleverParticipantFormations(p)">Enlever ce participant des formations</button></td>
+        
+
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+<br>
+<h2 class="container text-center">Ajouter/Modifier un participant</h2>
+
+<!-- <form  #form="ngForm" (ngSubmit)="ajouterParticipant(form)">
     id : <input type="number" name="id" [(ngModel)]="ParticipantAAjouter.id" [hidden]="true"> 
     mail : <input type="text" name="mail" [(ngModel)]="ParticipantAAjouter.mail"> 
     nom : <input type="text" name="nom" [(ngModel)]="ParticipantAAjouter.nom">
     prenom : <input type="text" name="prenom" [(ngModel)]="ParticipantAAjouter.prenom">
     telephone : <input type="number" name="telephone" [(ngModel)]="ParticipantAAjouter.telephone">
     username : <input type="text" name="username" [(ngModel)]="ParticipantAAjouter.username">
-   <!--password : <input type="text" name="password" [(ngModel)]="ParticipantAAjouter.password">--> 
+    mot de passe : <input type="text" name="password" [(ngModel)]="ParticipantAAjouter.password">
+   
   
     Formation :
       
@@ -58,7 +109,56 @@
       </div>
       
     <button type="submit">Ajouter Participant</button>
-</form>
+</form> -->
+
+
+<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4 mx-auto" >
+
+    <form #form="ngForm" (ngSubmit)="ajouterParticipant(form)">
+        <div class="form-group">
+        <label for="exampleInputEmail1">Mail</label>
+        <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Entrer le mail" name="id" [(ngModel)]="ParticipantAAjouter.id">
+        
+        </div>
+        <div class="form-group">
+        <label for="exampleInputPassword1">Nom</label>
+        <input type="text" class="form-control"  placeholder="Nom du participant" name="nom" [(ngModel)]="ParticipantAAjouter.nom">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Prenom</label>
+            <input type="text" class="form-control"  placeholder="Prénom du participant" name="prenom" [(ngModel)]="ParticipantAAjouter.prenom">
+            </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">telephone</label>
+            <input type="number" class="form-control"  placeholder="numéro de téléphone du participant" name="telephone" [(ngModel)]="ParticipantAAjouter.telephone">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Username</label>
+            <input type="text" class="form-control"  placeholder="login du participant" name="username" [(ngModel)]="ParticipantAAjouter.username">
+            </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mot de passe</label>
+            <input type="text" class="form-control"  placeholder="mot de passe du participant" name="password" [(ngModel)]="ParticipantAAjouter.password">
+        </div>
+
+        Formation :
+      
+    <div *ngFor="let formation of ListeFormation">
+        <input type="checkbox" (change)="toggleSelection(formation.id)" [checked]="listeIdFormation.includes(formation.id)">
+        {{formation.nom}}
+      </div>
+
+       
+        <button type="submit" class="btn btn-primary">Ajouter/Modifier Formation</button>
+    </form>
+
+</div>
+
+
 
 <div *ngIf="ListePaiement.length!=0">
 
@@ -88,3 +188,5 @@
     <h2> Ce que doit ce participant </h2>
     <p>Ce participant doit encore {{SommeRestantAPayer}} €</p>
   </div>
+
+  <a href="menuAdmin"><<< Retour au menu administrateur</a>
