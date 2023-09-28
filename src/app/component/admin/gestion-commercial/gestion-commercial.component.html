@@ -1,7 +1,15 @@
-<h1>Gestion Admin pour Commerciaux</h1>
 
-<h3>Entrée d'un nouveau Commercial</h3>
-<form (ngSubmit)="ajoutCommercial()" *ngIf="commercial.role.nom==('COMMERCIAL'||'ADMIN')">
+
+<div *ngIf="user.role.nom === 'ADMIN'">
+<h1>Gestion Admin pour Commerciaux</h1> <hr>
+</div>
+<div *ngIf="user.role.nom === 'COMMERCIAL'">
+  <h1>Gestion pour Commerciaux</h1>
+  </div>
+
+<div *ngIf="user.role.nom === 'ADMIN'">
+<h3>Entrée d'un nouveau Commercial</h3> 
+<form (ngSubmit)="ajoutCommercial()" >
     <input type="hidden" name="id" [(ngModel)]="commercial.id">
     Nom : <input type="text" name="nom" [(ngModel)]="commercial.nom"> <br>
     Prenom : <input type="text" name="prenom" [(ngModel)]="commercial.prenom"> <br>
@@ -14,68 +22,118 @@
 
     <button type="submit">Ajouter</button>
     </form>
-    
+  </div> 
+  <div *ngIf="erreurMail==true">
+    <p style="color:red ;">Format de l'adresse mail non reconnu<br>
+        Veuillez ré-essayer.
+    </p>
+
+  </div>
+  <div *ngIf="erreurPhone==true">
+    <p style="color:red ;">Format du numéro de téléphone non reconnu<br>
+        Veuillez ré-essayer.
+    </p>
+
+  </div>
+  <div *ngIf="ajoutOk==true">
+    <p style="color:green;">Commercial ajouté à la base de données<br>
+        
+    </p>
+
+  </div>
     
     <hr>
    
-<h1>Liste des commerciaux</h1>
-
-<table border="1" title="Tableau des Commerciaux">
-<!-- tetes de colonnes du tableau-->
+<h1>Annuaire des commerciaux</h1>
+<table border="1" class="table table-striped">
+  <thead>
     <tr>
-<!-- Section infos employé commercial-->
-<td>Nom d'utilisateur</td>
-<td> Nom</td>
-<td>Prenom</td>
-<td>Mail</td>
-<td>Telephone</td>
+      <!-- Section infos employé commercial-->
+      <td class="border">Nom d'utilisateur</td>
+<td class="border"> Nom</td>
+<td class="border">Prenom</td>
+<td class="border">Mail</td>
+<td class="border">Telephone</td>
 <!--Section boutons administrateur, gestion du profil-->
-<td>Acces liste appels</td>
-<td>Modifier Commercial </td>
-<td>SupprimerCommercial</td>
 
-
-
-<!--Affichage de la liste des commerciaux-->
-
+<td *ngIf="user.role.nom === 'ADMIN'" class="border">Acces liste appels</td>
+<td *ngIf="user.role.nom === 'ADMIN'" class="border">Modifier Commercial </td>
+<td *ngIf="user.role.nom === 'ADMIN'" class="border">SupprimerCommercial</td>
     </tr>
-
-    <tr *ngFor="let c of listeCommercial" >
-       
-      <td>{{c.username}}</td>
-        <td> {{c.nom}}</td>
-        <td>{{c.prenom}}</td> 
-        <td>{{c.mail}}</td>
-        <td> {{c.telephone}}</td>
-        <td> <!-- Bouton pour afficher/cacher la liste des appels -->
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of listeCommercial">
+      <td class="border">{{c.username}}</td>
+        <td class="border"> {{c.nom}}</td>
+        <td class="border">{{c.prenom}}</td> 
+        <td class="border">{{c.mail}}</td>
+        <td class="border"> {{c.telephone}}</td>
+        
+        <td *ngIf="user.role.nom === 'ADMIN'" class="border"> <!-- Bouton pour afficher/cacher la liste des appels -->
             <button (click)="toggleAfficherAppels(c.id)">{{c.nom}}</button>
         </td>
         <!-- Insérez la liste des appels ici avec *ngIf 
         <td *ngIf="afficherAppels && c === commercialSelectionne"></td>-->
        <!--<td><button (click)="afficher(p.id)">AfficherPasseport</button> </td>--> 
-       <td><button (click)="modifierCommercial(c.id)">Modifier</button> </td>
-       <td><button (click)="supprimerCommercial(c.id)">Supprimer</button> </td>
-        
-        
-        
-     
+       <td *ngIf="user.role.nom === 'ADMIN'" class="border"><button (click)="modifierCommercial(c.id)">Modifier</button> </td>
+       <td *ngIf="user.role.nom === 'ADMIN'" class="border"><button (click)="supprimerCommercial(c.id)">Supprimer</button> </td>
     </tr>
-    
-
-
+    <!-- Ajoute d'autres lignes ici -->
+  </tbody>
 </table>
+
+
+
+
+
 <br>
 <hr>
 <br>
+<h1 *ngIf="user.role.nom === 'COMMERCIAL'">Gestion profil</h1>
+<table > 
+  <!-- Affichage de la liste des commerciaux -->
+<tr *ngFor="let c of listeCommercial">
+  <!-- ... Autres colonnes ... -->
+  
+    <!-- Affichez le bouton seulement si l'utilisateur connecté correspond au commercial
+    
+    <td *ngIf="user && user.id === c.id"><button (click)="selectCommercialParId(c.id)">Gestion profil</button> </td>
+  -->
+  <div *ngIf="user && user.id === c.id">
+    <h1>Appels du commercial identifié</h1>
+  <table border="1"  class="table table-striped" title="Liste des appels">
+  <tr>
+    <td>Nom commercial</td>
+    <td>Prénom commercial</td>
+    <td>Appels</td>
+    
+  </tr>
+  
+  <tr>
+    <td>{{ c.nom }}</td>
+    <td>{{ c.prenom }}</td>
+    <td><button (click)="toggleAfficherAppels(c.id)">afficher</button></td>
+    
+  </tr>
+  </table>
+  </div>
+  
+</tr>
+
+</table>
+
+
 
 <!--Division concernant l'affichage des listes d'appels d'un Commercial-->
 <div *ngIf = "listeAppels.length > 0 ">
-    <h1>Appels du commercial sélectionné</h1>
-<table *ngIf="listeAppels.length > 0" border="1" title="Liste des appels">
+    <h1>Vos appels</h1>
+<table *ngIf="listeAppels.length > 0" border="1" class="table table-condensed" title="Liste des appels">
   <tr>
     <td>Début appel</td>
     <td>Durée Appel</td>
     <td>Rendez-vous</td>
+    <td>Nom Prospect</td>
+    <td>Tel Prospect</td>
     
   </tr>
 
@@ -83,7 +141,15 @@
     <td>{{ a.debutAppel }}</td>
     <td>{{ a.duree }}</td>
     <td>{{ a.rdv }}</td>
+    </tr>
+    <tr *ngFor="let c of listeProspect">
+    <td>{{ c.nom }}</td>
+    <td>{{c.telephone}}</td>
+    
+    <!-- plutôt aller récupérer le commercial avec let c of listeCommercial pareil pour prospect et commentaire !!!-->
+
     
   </tr>
 </table>
 </div>
+<hr><hr>
