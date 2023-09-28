@@ -1,3 +1,16 @@
 .selected-row {
     background-color: yellow; /* Couleur de surlignage */
 }
+/* Dans votre fichier CSS ou SCSS */
+.button-blue {
+    background-color: rgb(81, 68, 152);
+    color: greenyellow; /* Couleur du texte */
+  }
+  .button-orange {
+    background-color: rgb(81, 68, 152);
+    color: orange; /* Couleur du texte */
+  }
+  .button-red {
+    background-color: rgb(81, 68, 152);
+    color: red; /* Couleur du texte */
+  }

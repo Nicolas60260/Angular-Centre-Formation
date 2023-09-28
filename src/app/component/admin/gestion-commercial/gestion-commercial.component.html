@@ -70,13 +70,13 @@
         <td class="border"> {{c.telephone}}</td>
         
         <td *ngIf="user.role.nom === 'ADMIN'" class="border"> <!-- Bouton pour afficher/cacher la liste des appels -->
-            <button (click)="toggleAfficherAppels(c.id)">{{c.nom}}</button>
+            <button [ngClass]="{'button-blue': user.role.nom === 'ADMIN'}" (click)="toggleAfficherAppels(c.id)">{{c.nom}}</button>
         </td>
         <!-- Insérez la liste des appels ici avec *ngIf 
         <td *ngIf="afficherAppels && c === commercialSelectionne"></td>-->
        <!--<td><button (click)="afficher(p.id)">AfficherPasseport</button> </td>--> 
-       <td *ngIf="user.role.nom === 'ADMIN'" class="border"><button (click)="modifierCommercial(c.id)">Modifier</button> </td>
-       <td *ngIf="user.role.nom === 'ADMIN'" class="border"><button (click)="supprimerCommercial(c.id)">Supprimer</button> </td>
+       <td *ngIf="user.role.nom === 'ADMIN'" class="border"><button [ngClass]="{'button-orange': user.role.nom === 'ADMIN'}" (click)="modifierCommercial(c.id)">Modifier</button> </td>
+       <td *ngIf="user.role.nom === 'ADMIN'" class="border"><button [ngClass]="{'button-red': user.role.nom === 'ADMIN'}"(click)="supprimerCommercial(c.id)">Supprimer</button> </td>
     </tr>
     <!-- Ajoute d'autres lignes ici -->
   </tbody>
