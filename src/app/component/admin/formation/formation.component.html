@@ -1,6 +1,6 @@
 <title>Gestion Formation</title>
 
-<<<<<<< HEAD
+
 
 
 <div class="col-md-8 col-sm-8 col-lg-8 col-xl-8 mx-auto" >
@@ -41,7 +41,7 @@
   </table>
 </div>
 <br>
-=======
+
 <table>
     <tr>
         <td>id</td>
@@ -76,14 +76,14 @@
 
     </tr>
 </table>
->>>>>>> master
+
 
 
 <h2 class="container text-center">Ajouter/Modifier une formation</h2>
 
 
 
-<<<<<<< HEAD
+
 
 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4 mx-auto" >
     <form (ngSubmit)="ajouterFormation()">
@@ -113,27 +113,14 @@
             {{cours.nom}}
         </div>
 
+        formateur:  <select id="formateur" [(ngModel)]="FormationAAjouter.formateur.id" name="formateur">
+            <option *ngFor="let formateur of ListeFormateur" [value]="formateur.id">{{ formateur.nom }}</option>
+        </select>
+
        
         <button type="submit" class="btn btn-primary">Ajouter/Modifier Formation</button>
     </form>
 
 </div>
 <br>
-=======
-    id : <input type="number" name="id" [(ngModel)]="FormationAAjouter.id" [hidden]="true">
-    nom : <input type="text" name="mail" [(ngModel)]="FormationAAjouter.nom">
-    date début formation : <input type="date" name="nom" [(ngModel)]="FormationAAjouter.dateDebut">
-    date fin formation : <input type="date" name="prenom" [(ngModel)]="FormationAAjouter.dateFin">
-    prix : <input type="number" name="prix" [(ngModel)]="FormationAAjouter.prix">
-    cours :
 
-    <div *ngFor="let cours of ListeCours">
-        <input type="checkbox" (change)="toggleSelection(cours.id)" [checked]="ListeIdCours.includes(cours.id)">
-        {{cours.nom}}
-    </div>
-    formateur:  <select id="formateur" [(ngModel)]="FormationAAjouter.formateur.id" name="formateur">
-        <option *ngFor="let formateur of ListeFormateur" [value]="formateur.id">{{ formateur.nom }}</option>
-    </select>
-    <button type="submit">Ajouter/Modifier Formation</button>
-</form>
->>>>>>> master
